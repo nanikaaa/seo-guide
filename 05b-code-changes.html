@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Code changes · RightCore SEO Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="shell">
+    <nav class="toc" aria-label="Contents">
+      <a class="home" href="index.html">RightCore SEO Plan</a>
+      <p>Contents</p>
+      <ol>
+        <li><a href="01-simple-explanation.html">1. Simple explanation</a></li>
+        <li><a href="02-site-map.html">2. Site map &amp; page plan</a></li>
+        <li><a href="03-website-audit.html">3. Website audit</a></li>
+        <li><a href="04-discussion-guide.html">4. Discussion guide</a></li>
+        <li><a href="05-coder-tasks.html">5. Coder task list</a></li>
+        <li><a href="05b-code-changes.html" aria-current="page">5.1 Code changes</a></li>
+        <li><a href="05c-wp-checklist.html">5.2 WP checklist &amp; plugins</a></li>
+        <li><a href="06-questions.html">6. Questions for media &amp; manager</a></li>
+        <li><a href="07-report-template.html">7. Oct 7 report template</a></li>
+        <li><a href="09-sources.html">Sources</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section>
+        <h2>5.1 Code changes</h2>
+        <p class="lede">The exact theme code that needs editing, with the current code and the replacement. Each
+          block names its file, the audit finding and the task in <a href="05-coder-tasks.html">section 5</a>.</p>
+        <div class="note key">
+          <p><b>Before you edit</b></p>
+          <ul>
+            <li>Line numbers are from the October 1 audit of the development build. Search for the quoted code if
+              the lines have moved.</li>
+            <li>Make every change in development first. Production changes wait for manager approval.</li>
+            <li>Values in <code>【brackets】</code> (link targets, alt text, image sizes, domain) must be confirmed
+              before upload.</li>
+            <li>Titles, descriptions, canonical, Open Graph, sitemap and structured data are set in Yoast SEO, not
+              in the theme (<a href="#seo-plugin">see C12</a>).</li>
+          </ul>
+        </div>
+        <ol class="topics">
+          <li><a href="#htaccess"><b>C1. Test site 404s</b><span><code>right-core/.htaccess</code> · A22</span></a></li>
+          <li><a href="#nav-links"><b>C2. Header and footer links</b><span><code>header.php</code>, <code>footer.php</code> · A3</span></a></li>
+          <li><a href="#buttons"><b>C3. もっと見る buttons and service cards</b><span><code>sec-about.php</code>, <code>sec-service.php</code>, <code>sec-recruit.php</code>, <code>sec-faq.php</code> · A3</span></a></li>
+          <li><a href="#headings"><b>C4. Duplicate headings and ids</b><span><code>sec-service.php</code>, <code>sec-about.php</code>, <code>sec-recruit.php</code> · A11</span></a></li>
+          <li><a href="#images"><b>C5. Image loading, sizes and alt text</b><span><code>sec-mv.php</code>, <code>sec-about.php</code>, <code>sec-recruit.php</code> · A6, A7</span></a></li>
+          <li><a href="#fonts"><b>C6. Replace the 8.9 MB font</b><span><code>assets/css/base/fonts.css</code>, <code>functions.php</code> · A6</span></a></li>
+          <li><a href="#image-files"><b>C7. Compress image files</b><span><code>assets/img/</code> · A6, A21</span></a></li>
+          <li><a href="#works"><b>C8. Works list and detail templates</b><span>new <code>archive-works.php</code>, <code>single-works.php</code> · A1</span></a></li>
+          <li><a href="#notfound"><b>C9. 404 page</b><span>new <code>404.php</code> · A20</span></a></li>
+          <li><a href="#company"><b>C10. Company details in one place</b><span><code>functions.php</code>, <code>footer.php</code> · A14</span></a></li>
+          <li><a href="#redirects"><b>C11. Production HTTPS redirect</b><span>production <code>.htaccess</code> · A10</span></a></li>
+          <li><a href="#seo-plugin"><b>C12. Remove duplicate head output</b><span><code>header.php</code> · A2, A4, A5, A18, A19</span></a></li>
+          <li><a href="#verify"><b>C13. Commands to collect evidence</b><span>status codes, placeholders, links</span></a></li>
+          <li><a href="#site-name"><b>C14. Company name from the Site Title</b><span><code>sec-mv.php</code>, <code>header.php</code>, <code>footer.php</code> and 4 more · A2</span></a></li>
+        </ol>
+      </section>
+
+      <!-- C1 -->
+      <section id="htaccess">
+        <div class="finding-head"><span class="num">C1 · A22</span>
+          <h3>Fix the 404s on the published test site</h3>
+          <div class="chips"><span class="chip p-high">High</span></div>
+        </div>
+        <p>First try Settings › Permalinks › Save in the test site admin. If <code>/right-core/news/</code> still
+          shows the server's plain "Not Found" page, upload this file as <code>right-core/.htaccess</code>. FTP
+          clients often hide files that start with a dot; turn on "show hidden files".</p>
+        <figure class="code">
+          <figcaption>right-core/.htaccess (new or replace)</figcaption>
+          <pre><code># BEGIN WordPress
+&lt;IfModule mod_rewrite.c&gt;
+RewriteEngine On
+RewriteBase /right-core/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /right-core/index.php [L]
+&lt;/IfModule&gt;
+# END WordPress</code></pre>
+        </figure>
+        <p class="small">On production, WordPress is at the domain root: use <code>RewriteBase /</code> and
+          <code>RewriteRule . /index.php [L]</code>.</p>
+      </section>
+
+      <!-- C2 -->
+      <section id="nav-links">
+        <div class="finding-head"><span class="num">C2 · A3</span>
+          <h3>Header and footer links go to their own pages</h3>
+          <div class="chips"><span class="chip p-high">High</span><span class="chip s-ok">Done in development (Oct 5)</span></div>
+        </div>
+        <p><b>Decision:</b> every menu item, contact button and footer site map link points to its own page address
+          now, even if that page is not built yet and shows a 404 for the moment. The links start working as each page
+          in the <a href="02-site-map.html">page plan</a> is published, with no further code change. Facebook and X use
+          dummy addresses until the official accounts are confirmed.</p>
+        <figure class="code">
+          <figcaption>header.php, menu (desktop and mobile) · before → now</figcaption>
+          <pre class="before"><code>&lt;a href="#about" class="nav-block1"&gt;
+&lt;a href="#service" class="nav-block1"&gt;
+&lt;a href="#company" class="nav-block1"&gt;
+&lt;a href="#works" class="nav-block1"&gt;
+&lt;a href="#recruit" class="nav-block1"&gt;
+&lt;a href="#faq" class="nav-block1"&gt;
+&lt;a href="#news" class="nav-block1"&gt;
+&lt;a href="#contact" class="contact-btn"&gt;   (2 places)</code></pre>
+          <pre class="after"><code>&lt;a href="&lt;?php echo esc_url(home_url('/about/')); ?&gt;" class="nav-block1"&gt;
+&lt;a href="&lt;?php echo esc_url(home_url('/service/')); ?&gt;" class="nav-block1"&gt;
+&lt;a href="&lt;?php echo esc_url(home_url('/company/')); ?&gt;" class="nav-block1"&gt;
+&lt;a href="&lt;?php echo esc_url(home_url('/works/')); ?&gt;" class="nav-block1"&gt;
+&lt;a href="&lt;?php echo esc_url(home_url('/recruit/')); ?&gt;" class="nav-block1"&gt;
+&lt;a href="&lt;?php echo esc_url(home_url('/faq/')); ?&gt;" class="nav-block1"&gt;
+&lt;a href="&lt;?php echo esc_url(rightcore_news_list_url()); ?&gt;" class="nav-block1"&gt;
+&lt;a href="&lt;?php echo esc_url(home_url('/contact/')); ?&gt;" class="contact-btn"&gt;   (2 places)</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>footer.php, site map · before → now</figcaption>
+          <pre class="before"><code>&lt;li&gt;&lt;a href="#about"&gt;About&lt;span&gt;私たちについて&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#services"&gt;Service&lt;span&gt;サービス紹介&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#company"&gt;Company&lt;span&gt;会社概要&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#works"&gt;Works&lt;span&gt;実績&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#recruit"&gt;Recruit&lt;span&gt;採用情報&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#faq"&gt;Faq&lt;span&gt;よくあるご質問&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#news"&gt;News&lt;span&gt;ニュース&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</code></pre>
+          <pre class="after"><code>&lt;li&gt;&lt;a href="&lt;?php echo esc_url(home_url('/about/')); ?&gt;"&gt;About&lt;span&gt;私たちについて&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="&lt;?php echo esc_url(home_url('/service/')); ?&gt;"&gt;Service&lt;span&gt;サービス紹介&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="&lt;?php echo esc_url(home_url('/company/')); ?&gt;"&gt;Company&lt;span&gt;会社概要&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="&lt;?php echo esc_url(home_url('/works/')); ?&gt;"&gt;Works&lt;span&gt;実績&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="&lt;?php echo esc_url(home_url('/recruit/')); ?&gt;"&gt;Recruit&lt;span&gt;採用情報&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="&lt;?php echo esc_url(home_url('/faq/')); ?&gt;"&gt;Faq&lt;span&gt;よくあるご質問&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="&lt;?php echo esc_url(rightcore_news_list_url()); ?&gt;"&gt;News&lt;span&gt;ニュース&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</code></pre>
+        </figure>
+        <p class="small">The Privacy Policy link already pointed to <code>/privacy-policy/</code> and is unchanged.
+          <code>rightcore_news_list_url()</code> returns the page that uses the 「News一覧」 template, or
+          <code>/news/</code> if there is none.</p>
+
+        <figure class="code">
+          <figcaption>footer.php, social icons · before → now</figcaption>
+          <pre class="before"><code>&lt;a class="footer-panel__social-icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"&gt;
+&lt;a class="footer-panel__social-icon footer-panel__social-icon--x" href="#" target="_blank" rel="noopener noreferrer" aria-label="X"&gt;</code></pre>
+          <pre class="after"><code>&lt;a class="footer-panel__social-icon" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"&gt;
+&lt;a class="footer-panel__social-icon footer-panel__social-icon--x" href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X"&gt;</code></pre>
+        </figure>
+        <p class="small">Dummy addresses: replace with 【official Facebook URL】 and 【official X URL】 once the
+          manager confirms the accounts, or delete the icons if the accounts do not exist (A3, A14).</p>
+      </section>
+
+      <!-- C3 -->
+      <section id="buttons">
+        <div class="finding-head"><span class="num">C3 · A3</span>
+          <h3>もっと見る buttons and service card links go to their pages</h3>
+          <div class="chips"><span class="chip p-high">High</span><span class="chip s-ok">Done in development (Oct 5)</span></div>
+        </div>
+        <p>Same decision as C2: no <code>#</code> or empty links. Each button points to the page it describes, even
+          if that page is a 404 for now. The homepage now has no <code>href="#"</code> and no empty
+          <code>href=""</code> links (the hidden "skip to content" link <code>#main-content</code> stays; it is an
+          accessibility jump, not a placeholder).</p>
+        <figure class="code">
+          <figcaption>sec-about.php, sec-service.php (2 buttons), sec-recruit.php · before → now</figcaption>
+          <pre class="before"><code>&lt;?php get_template_part('template-parts/button', null, array('url' =&gt; '#')); ?&gt;</code></pre>
+          <pre class="after"><code>&lt;!-- sec-about.php --&gt;
+&lt;?php get_template_part('template-parts/button', null, array('url' =&gt; home_url('/about/'))); ?&gt;
+&lt;!-- sec-service.php (desktop and phone buttons) --&gt;
+&lt;?php get_template_part('template-parts/button', null, array('url' =&gt; home_url('/service/'))); ?&gt;
+&lt;!-- sec-recruit.php --&gt;
+&lt;?php get_template_part('template-parts/button', null, array('url' =&gt; home_url('/recruit/'))); ?&gt;</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>sec-service.php, card "see more" links (8 links, 2 per service) · before → now</figcaption>
+          <pre class="before"><code>&lt;a href="" class="fl"&gt;&lt;span&gt;see more&lt;/span&gt;&lt;i class="fa-solid fa-arrow-right"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a href="#" class="fl"&gt;&lt;span&gt;see more&lt;/span&gt;&lt;i class="fa-solid fa-arrow-right"&gt;&lt;/i&gt;&lt;/a&gt;</code></pre>
+          <pre class="after"><code>&lt;a href="&lt;?php echo esc_url(home_url('/service/#creative')); ?&gt;" class="fl"&gt;   Creative / 企画
+&lt;a href="&lt;?php echo esc_url(home_url('/service/#design')); ?&gt;" class="fl"&gt;     Design / デザイン
+&lt;a href="&lt;?php echo esc_url(home_url('/service/#media')); ?&gt;" class="fl"&gt;      Media / 運用
+&lt;a href="&lt;?php echo esc_url(home_url('/service/#global')); ?&gt;" class="fl"&gt;     Global / グローバル</code></pre>
+        </figure>
+        <p class="small">When the Service page is built, give its four sections the ids <code>creative</code>,
+          <code>design</code>, <code>media</code> and <code>global</code> so these links jump to the right place. If
+          each service gets its own page later (page plan P2), change the links to those addresses.</p>
+        <figure class="code">
+          <figcaption>template-parts/button.php · default when no URL is passed</figcaption>
+          <pre class="before"><code>'url'   =&gt; '#',</code></pre>
+          <pre class="after"><code>'url'   =&gt; home_url( '/' ),</code></pre>
+        </figure>
+        <p class="small">The FAQ button already links to <code>/faq/</code> and is unchanged. The Works button links to
+          the Works list (<code>get_post_type_archive_link( 'works' )</code>).</p>
+      </section>
+
+      <!-- C4 -->
+      <section id="headings">
+        <div class="finding-head"><span class="num">C4 · A11</span>
+          <h3>One heading per service and unique section ids</h3>
+          <div class="chips"><span class="chip p-low">Low</span></div>
+        </div>
+        <p>Each service name is an <code>&lt;h2&gt;</code> twice (card and hover overlay), and
+          <code>id="about-title"</code> appears three times. Each section's <code>aria-labelledby</code> must match
+          its own heading id.</p>
+        <figure class="code">
+          <figcaption>sec-service.php, overlay (lines 50, 86, 122, 158) · current → change to</figcaption>
+          <pre class="before"><code>&lt;div class="title-block"&gt;
+  &lt;h2&gt;Creative / 企画&lt;/h2&gt;</code></pre>
+          <pre class="after"><code>&lt;div class="title-block"&gt;
+  &lt;p class="title-block__name" aria-hidden="true"&gt;Creative / 企画&lt;/p&gt;</code></pre>
+        </figure>
+        <p class="small">Copy the overlay <code>h2</code> styles to <code>.title-block__name</code> so the look does
+          not change. Service names are H3 under the section's H2; change the card heading
+          (lines 32, 68, 104, 140) from <code>h2</code> to <code>h3</code> if the section title is the H2.</p>
+        <figure class="code">
+          <figcaption>sec-about.php, sec-service.php, sec-recruit.php · unique ids</figcaption>
+          <pre class="after"><code>&lt;!-- sec-about.php --&gt;
+&lt;section id="about" aria-labelledby="about-title"&gt; … &lt;h2 id="about-title"&gt;
+
+&lt;!-- sec-service.php --&gt;
+&lt;section id="service" aria-labelledby="service-title"&gt; … &lt;h2 id="service-title"&gt;
+
+&lt;!-- sec-recruit.php --&gt;
+&lt;section id="recruit" aria-labelledby="recruit-title"&gt; … &lt;h2 id="recruit-title"&gt;</code></pre>
+        </figure>
+        <p class="small">Search the CSS and JS for <code>#about-title</code> before renaming, and update any selector
+          that uses it.</p>
+      </section>
+
+      <!-- C5 -->
+      <section id="images">
+        <div class="finding-head"><span class="num">C5 · A6, A7</span>
+          <h3>Image loading, width/height and alt text</h3>
+          <div class="chips"><span class="chip p-high">High</span></div>
+        </div>
+        <p>The first MV photo is the largest item on screen (LCP): load it immediately with high priority. Every
+          other image below it loads lazily. Every <code>&lt;img&gt;</code> gets <code>width</code> and
+          <code>height</code> equal to the file's real pixel size (only 19 of 42 have them now).</p>
+        <figure class="code">
+          <figcaption>sec-mv.php · MV slider images</figcaption>
+          <pre class="before"><code>&lt;img src="&lt;?php echo get_template_directory_uri(); ?&gt;/assets/img/top/mv01.jpg" alt="" /&gt;
+&lt;img src="&lt;?php echo get_template_directory_uri(); ?&gt;/assets/img/top/mv02.jpg" alt="" /&gt;</code></pre>
+          <pre class="after"><code>&lt;?php $img = get_template_directory_uri() . '/assets/img/top/'; ?&gt;
+&lt;!-- First slide: no lazy loading, high priority --&gt;
+&lt;img src="&lt;?php echo esc_url( $img . 'mv01.jpg' ); ?&gt;"
+     width="【1920】" height="【1080】"
+     fetchpriority="high" decoding="async"
+     alt="【短い説明: 例 打ち合わせをするライトコアのスタッフ】" /&gt;
+&lt;!-- Other slides --&gt;
+&lt;img src="&lt;?php echo esc_url( $img . 'mv02.jpg' ); ?&gt;"
+     width="【1920】" height="【1080】"
+     loading="lazy" decoding="async"
+     alt="【短い説明】" /&gt;</code></pre>
+        </figure>
+        <p class="small">If the slider shows mv02 first (the audit measured mv02 as LCP), put
+          <code>fetchpriority="high"</code> on whichever slide is visible on first load, and only that one.</p>
+        <figure class="code">
+          <figcaption>sec-about.php (img01.png) and sec-recruit.php (img02.png) · current → change to</figcaption>
+          <pre class="before"><code>&lt;img src="&lt;?php echo get_template_directory_uri(); ?&gt;/assets/img/top/img02.png" alt="" /&gt;</code></pre>
+          <pre class="after"><code>&lt;img src="&lt;?php echo esc_url( get_template_directory_uri() . '/assets/img/top/img02.webp' ); ?&gt;"
+     width="【800】" height="【600】" loading="lazy" decoding="async"
+     alt="【短い説明: 例 オフィスで作業するデザイナー】" /&gt;</code></pre>
+        </figure>
+        <div class="note">
+          <p><b>Alt text rules</b></p>
+          <ul>
+            <li>Photos that carry meaning (MV, About, Recruit): short, factual Japanese description.</li>
+            <li>Images that show text: repeat that text.</li>
+            <li>Decorative images (bullets, icons next to a label, avatars next to a name): keep <code>alt=""</code>.</li>
+            <li>Service card images currently say <code>alt="Avatar"</code>: change to <code>alt=""</code> (the card
+              heading already names the service).</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- C6 -->
+      <section id="fonts">
+        <div class="finding-head"><span class="num">C6 · A6</span>
+          <h3>Replace the 8.9 MB NotoSans.ttf</h3>
+          <div class="chips"><span class="chip p-high">High</span></div>
+        </div>
+        <p>Choose one option and compare the look in development. Option A is the least work.</p>
+        <figure class="code">
+          <figcaption>assets/css/base/fonts.css · current</figcaption>
+          <pre class="before"><code>@font-face {
+  font-family: "Noto Sans JP";
+  src: url("../fonts/NotoSans.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>Option A · functions.php, inside the existing wp_enqueue_scripts action</figcaption>
+          <pre class="after"><code>// Google Fonts serves Japanese in small slices, so only the characters on the page download.
+wp_enqueue_style(
+    'noto-sans-jp',
+    'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&amp;display=swap',
+    array(),
+    null
+);</code></pre>
+          <figcaption>…and delete the Noto Sans JP <code>@font-face</code> block from fonts.css. Keep
+            <code>font-family: "Noto Sans JP"</code> in the CSS rules as it is. Add only the weights the design
+            uses.</figcaption>
+        </figure>
+        <figure class="code">
+          <figcaption>Option B · self-hosted subset WOFF2 (keeps fonts on our server)</figcaption>
+          <pre class="after"><code># One-time, on a coder's PC (Python): pip install fonttools brotli
+pyftsubset NotoSans.ttf \
+  --unicodes="U+0020-007E,U+3000-30FF,U+FF00-FFEF" \
+  --text-file=kanji-used-on-site.txt \
+  --flavor=woff2 --layout-features='*' \
+  --output-file=NotoSansJP-subset.woff2</code></pre>
+          <pre class="after"><code>@font-face {
+  font-family: "Noto Sans JP";
+  src: url("../fonts/NotoSansJP-subset.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}</code></pre>
+          <figcaption><code>kanji-used-on-site.txt</code> = all text on the site. A subset only covers characters
+            in that file, so new News posts may show fallback glyphs. That is why Option A is recommended. Do the same
+            for <code>Montserrat.ttf</code> (Latin only, much smaller).</figcaption>
+        </figure>
+      </section>
+
+      <!-- C7 -->
+      <section id="image-files">
+        <div class="finding-head"><span class="num">C7 · A6, A21</span>
+          <h3>Compress image files and remove unused ones</h3>
+          <div class="chips"><span class="chip p-med">Medium</span></div>
+        </div>
+        <p>Target: each photo under about 300 KB, about twice its largest displayed width. Keep the originals outside
+          the theme folder.</p>
+        <figure class="code">
+          <figcaption>Commands (ImageMagick and cwebp), run in assets/img/</figcaption>
+          <pre class="after"><code># MV photos: 2560px wide max, WebP quality 75
+for f in top/mv01 top/mv02 top/mv03 top/mv04 top/header_mv; do
+  magick "$f.jpg" -resize '2560x&gt;' -strip "$f-resized.jpg"
+  cwebp -q 75 "$f-resized.jpg" -o "$f.webp" &amp;&amp; rm "$f-resized.jpg"
+done
+
+# Backgrounds
+magick footer/cta-bg.jpg    -resize '2560x&gt;' -strip -quality 70 footer/cta-bg.jpg
+magick footer/footer-bg.jpg -resize '2560x&gt;' -strip -quality 70 footer/footer-bg.jpg
+cwebp -q 75 top/sec04-bg.png -o top/sec04-bg.webp
+
+# Check sizes
+ls -lh top/*.webp footer/*.jpg</code></pre>
+        </figure>
+        <p class="small">If you switch a file to <code>.webp</code>, update the file name in the PHP and in any CSS
+          <code>background-image: url(...)</code>.</p>
+        <figure class="code">
+          <figcaption>Confirm a file is unused before deleting it (A21), run in the theme folder</figcaption>
+          <pre class="after"><code>for f in mv-img.png header_mv.png sec01-ellipse-bg.png; do
+  echo "== $f"; grep -rn "$f" --include=*.php --include=*.css --include=*.js . || echo "unused"
+done</code></pre>
+        </figure>
+        <p class="small">Local check found <code>mv-img.png</code> referenced in an older <code>mv.php</code>. Run the
+          command on the current theme before deleting.</p>
+      </section>
+
+      <!-- C8 -->
+      <section id="works">
+        <div class="finding-head"><span class="num">C8 · A1</span>
+          <h3>Works list and detail templates</h3>
+          <div class="chips"><span class="chip p-high">High</span></div>
+        </div>
+        <p>Without these files WordPress falls back to <code>index.php</code>, which shows only 「RIGHTCORE」. Follow
+          the structure of the News templates already built in development (Oct 5) so both look consistent. Use the
+          same class names as the News templates where possible.</p>
+        <figure class="code">
+          <figcaption>functions.php · image sizes for Works thumbnails (inside after_setup_theme)</figcaption>
+          <pre class="after"><code>add_image_size( 'works-card', 720, 480, true );   // list cards
+add_image_size( 'works-main', 1440, 960, false ); // detail page</code></pre>
+          <figcaption>Run "Regenerate Thumbnails" (plugin) once after adding sizes, so old uploads get them.</figcaption>
+        </figure>
+        <figure class="code">
+          <figcaption>archive-works.php (new)</figcaption>
+          <pre class="after"><code>&lt;?php get_header(); ?&gt;
+&lt;main id="main-content" class="works-archive"&gt;
+  &lt;h1&gt;制作実績&lt;/h1&gt;
+
+  &lt;?php if ( have_posts() ) : ?&gt;
+    &lt;ul class="works-list"&gt;
+      &lt;?php while ( have_posts() ) : the_post(); ?&gt;
+        &lt;li class="works-list__item"&gt;
+          &lt;a href="&lt;?php the_permalink(); ?&gt;"&gt;
+            &lt;?php if ( has_post_thumbnail() ) {
+              // Prints srcset/sizes, width, height and loading="lazy" automatically.
+              the_post_thumbnail( 'works-card', array( 'alt' =&gt; '' ) );
+            } ?&gt;
+            &lt;h2 class="works-list__title"&gt;&lt;?php the_title(); ?&gt;&lt;/h2&gt;
+          &lt;/a&gt;
+        &lt;/li&gt;
+      &lt;?php endwhile; ?&gt;
+    &lt;/ul&gt;
+
+    &lt;?php the_posts_pagination( array( 'prev_text' =&gt; '前へ', 'next_text' =&gt; '次へ' ) ); ?&gt;
+  &lt;?php else : ?&gt;
+    &lt;p&gt;制作実績はまだありません。&lt;/p&gt;
+  &lt;?php endif; ?&gt;
+&lt;/main&gt;
+&lt;?php get_footer(); ?&gt;</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>single-works.php (new)</figcaption>
+          <pre class="after"><code>&lt;?php get_header(); ?&gt;
+&lt;main id="main-content" class="works-single"&gt;
+  &lt;?php while ( have_posts() ) : the_post(); ?&gt;
+    &lt;article&gt;
+      &lt;h1&gt;&lt;?php the_title(); ?&gt;&lt;/h1&gt;
+      &lt;time datetime="&lt;?php echo esc_attr( get_the_date( 'c' ) ); ?&gt;"&gt;&lt;?php echo esc_html( get_the_date( 'Y.m.d' ) ); ?&gt;&lt;/time&gt;
+
+      &lt;?php if ( has_post_thumbnail() ) {
+        // Main image is above the fold: load it first.
+        the_post_thumbnail( 'works-main', array( 'loading' =&gt; 'eager', 'fetchpriority' =&gt; 'high' ) );
+      } ?&gt;
+
+      &lt;div class="works-single__content"&gt;&lt;?php the_content(); ?&gt;&lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;a class="sec-btn" href="&lt;?php echo esc_url( get_post_type_archive_link( 'works' ) ); ?&gt;"&gt;制作実績一覧へ戻る&lt;/a&gt;
+  &lt;?php endwhile; ?&gt;
+&lt;/main&gt;
+&lt;?php get_footer(); ?&gt;</code></pre>
+        </figure>
+        <p class="small">Instagram: do not build templates (an Instagram feed plugin replaces the post type). Turn off
+          its sitemap and set it to noindex in Yoast (Content types › Instagram › search results: off) until then.</p>
+      </section>
+
+      <!-- C9 -->
+      <section id="notfound">
+        <div class="finding-head"><span class="num">C9 · A20</span>
+          <h3>404 page</h3>
+          <div class="chips"><span class="chip p-low">Low</span></div>
+        </div>
+        <figure class="code">
+          <figcaption>404.php (new)</figcaption>
+          <pre class="after"><code>&lt;?php get_header(); ?&gt;
+&lt;main id="main-content" class="error-404"&gt;
+  &lt;h1&gt;ページが見つかりませんでした&lt;/h1&gt;
+  &lt;p&gt;お探しのページは移動または削除された可能性があります。&lt;/p&gt;
+
+  &lt;?php get_search_form(); ?&gt;
+
+  &lt;ul class="error-404__links"&gt;
+    &lt;li&gt;&lt;a href="&lt;?php echo esc_url( home_url( '/' ) ); ?&gt;"&gt;トップページ&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="&lt;?php echo esc_url( home_url( '/about/' ) ); ?&gt;"&gt;私たちについて&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="&lt;?php echo esc_url( get_post_type_archive_link( 'works' ) ); ?&gt;"&gt;制作実績&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="&lt;?php echo esc_url( get_post_type_archive_link( 'news' ) ); ?&gt;"&gt;ニュース&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="&lt;?php echo esc_url( home_url( '/#contact' ) ); ?&gt;"&gt;お問い合わせ&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/main&gt;
+&lt;?php get_footer(); ?&gt;</code></pre>
+        </figure>
+        <p class="small">WordPress sends the 404 status itself; do not add a redirect to the homepage.</p>
+      </section>
+
+      <!-- C10 -->
+      <section id="company">
+        <div class="finding-head"><span class="num">C10 · A14</span>
+          <h3>Company details in one place</h3>
+          <div class="chips"><span class="chip p-med">After details are confirmed</span></div>
+        </div>
+        <p>The address, phone and email are typed by hand in several places in <code>footer.php</code> (Access card,
+          contact list, CTA buttons). For MEO they must match the Business Profile exactly. Keep them in one function
+          so a correction is made once.</p>
+        <figure class="code">
+          <figcaption>functions.php · add</figcaption>
+          <pre class="after"><code>/** Official company details. Must match the Google Business Profile exactly (A14). */
+function rightcore_company( $key ) {
+    $company = array(
+        'name'      =&gt; get_bloginfo( 'name' ),          // Settings › General › Site Title (C14)
+        'postcode'  =&gt; '〒530-0001',
+        'address'   =&gt; '大阪府大阪市北区梅田1丁目1-3 大阪駅前第3ビル 27階', // 【confirm】
+        'tel'       =&gt; '06-4256-3641',                                   // 【confirm】
+        'tel_link'  =&gt; '+81642563641',
+        'email'     =&gt; 'info@rightcore.jp',                              // 【confirm】
+        'instagram' =&gt; '【confirmed Instagram URL】',
+    );
+    return isset( $company[ $key ] ) ? $company[ $key ] : '';
+}</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>footer.php · current → change to (every place the phone, email or address appears)</figcaption>
+          <pre class="before"><code>&lt;a href="tel:+81642563641"&gt;06-4256-3641&lt;/a&gt;
+&lt;a href="mailto:info@rightcore.jp"&gt;info@rightcore.jp&lt;/a&gt;</code></pre>
+          <pre class="after"><code>&lt;a href="tel:&lt;?php echo esc_attr( rightcore_company( 'tel_link' ) ); ?&gt;"&gt;&lt;?php echo esc_html( rightcore_company( 'tel' ) ); ?&gt;&lt;/a&gt;
+&lt;a href="mailto:&lt;?php echo esc_attr( rightcore_company( 'email' ) ); ?&gt;"&gt;&lt;?php echo esc_html( rightcore_company( 'email' ) ); ?&gt;&lt;/a&gt;</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>Find every place to change, run in the theme folder</figcaption>
+          <pre class="after"><code>grep -rn -e "4256-3641" -e "81642563641" -e "info@rightcore" -e "梅田" -e "instagram.com" --include=*.php .</code></pre>
+        </figure>
+      </section>
+
+      <!-- C11 -->
+      <section id="redirects">
+        <div class="finding-head"><span class="num">C11 · A10</span>
+          <h3>Production: one HTTPS address</h3>
+          <div class="chips"><span class="chip p-med">Medium · production, after approval</span></div>
+        </div>
+        <p>Only if the redirect check shows that <code>http://</code> or the non-preferred <code>www</code> version
+          does not redirect with a 301. Many hosts have an HTTPS switch in their control panel; use that first.
+          Place these lines <b>above</b> <code># BEGIN WordPress</code>.</p>
+        <figure class="code">
+          <figcaption>production .htaccess · preferred host 【rightcore.jp or www.rightcore.jp — confirm】</figcaption>
+          <pre class="after"><code>&lt;IfModule mod_rewrite.c&gt;
+RewriteEngine On
+# http → https, and www → non-www, in a single 301
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://【rightcore.jp】%{REQUEST_URI} [L,R=301]
+&lt;/IfModule&gt;</code></pre>
+        </figure>
+        <p class="small">Also set Settings › General › WordPress Address and Site Address to the same
+          <code>https://</code> address. Test in a private window; browsers cache 301s.</p>
+      </section>
+
+      <!-- C12 -->
+      <section id="seo-plugin">
+        <div class="finding-head"><span class="num">C12 · A2, A4, A5, A18, A19</span>
+          <h3>Let Yoast SEO own the &lt;head&gt;</h3>
+          <div class="chips"><span class="chip p-high">High</span></div>
+        </div>
+        <p>Yoast SEO prints titles, descriptions, canonical, Open Graph and JSON-LD (its <code>yoast-schema-graph</code>, which includes Organization and BreadcrumbList) through
+          <code>wp_head()</code>. The theme must not print its own copy. Check <code>header.php</code> matches this
+          and remove any hard-coded tags.</p>
+        <figure class="code">
+          <figcaption>header.php · the head should contain only this (plus theme CSS enqueued in functions.php)</figcaption>
+          <pre class="after"><code>&lt;!doctype html&gt;
+&lt;html &lt;?php language_attributes(); ?&gt;&gt;  &lt;!-- prints lang="ja" once Site Language = 日本語 --&gt;
+&lt;head&gt;
+  &lt;meta charset="&lt;?php bloginfo( 'charset' ); ?&gt;"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;?php wp_head(); ?&gt;
+&lt;/head&gt;
+&lt;body &lt;?php body_class(); ?&gt;&gt;
+&lt;?php wp_body_open(); ?&gt;</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>Remove from the theme if found</figcaption>
+          <pre class="before"><code>&lt;title&gt;…&lt;/title&gt;                       ← title-tag support + Yoast print it
+&lt;meta name="description" …&gt;             ← Yoast
+&lt;link rel="canonical" …&gt;                ← Yoast
+&lt;meta property="og:…" …&gt;                ← Yoast
+&lt;script type="application/ld+json"&gt;     ← Yoast (Organization, BreadcrumbList)
+&lt;link rel="icon" …&gt;                     ← Appearance › Customize › Site Identity</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>Check for duplicates, run in the theme folder</figcaption>
+          <pre class="after"><code>grep -rn -i -e "&lt;title" -e 'name="description"' -e 'rel="canonical"' -e 'property="og:' -e "ld+json" -e 'rel="icon"' --include=*.php .</code></pre>
+        </figure>
+      </section>
+
+      <!-- C13 -->
+      <section id="verify">
+        <div class="finding-head"><span class="num">C13</span>
+          <h3>Commands to collect evidence</h3>
+          <div class="chips"><span class="chip s-check">Verification</span></div>
+        </div>
+        <p>Paste the output into the evidence folder and the Oct 7 report. Replace the base address with the
+          server you are checking.</p>
+        <figure class="code">
+          <figcaption>Status code of every planned page (A1, A20, A22)</figcaption>
+          <pre class="after"><code>BASE=https://offshore-tng02.sakura.ne.jp/right-core
+for p in / /about/ /news/ /works/ /faq/ /privacy-policy/ /this-page-does-not-exist/; do
+  printf '%s  %s\n' "$(curl -s -o /dev/null -w '%{http_code}' "$BASE$p")" "$p"
+done</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>Placeholder text, empty links and head tags on one page (A1, A3, A5, A10)</figcaption>
+          <pre class="after"><code>URL=https://offshore-tng02.sakura.ne.jp/right-core/news/
+curl -s "$URL" &gt; page.html
+grep -c "トップページをご覧ください" page.html      # expect 0
+grep -c 'href="#"' page.html                       # expect 0
+grep -c 'href=""' page.html                        # expect 0
+grep -o '&lt;title&gt;[^&lt;]*' page.html                    # one, unique
+grep -c 'name="description"' page.html             # expect 1
+grep -c 'rel="canonical"' page.html                # expect 1
+grep -o '&lt;html[^&gt;]*' page.html                      # lang="ja"</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>Redirects on production (A10)</figcaption>
+          <pre class="after"><code>for u in http://【rightcore.jp】/ http://www.【rightcore.jp】/ https://www.【rightcore.jp】/ https://【rightcore.jp】/; do
+  printf '%s → ' "$u"; curl -s -o /dev/null -w '%{http_code} %{redirect_url}\n' "$u"
+done</code></pre>
+        </figure>
+      </section>
+
+      <!-- C14 -->
+      <section id="site-name">
+        <div class="finding-head"><span class="num">C14 · A2</span>
+          <h3>Show the company name from the Site Title</h3>
+          <div class="chips"><span class="chip p-med">Medium</span><span class="chip s-ok">Done in development (Oct 5)</span></div>
+        </div>
+        <p>The company name was typed by hand in the theme. It now comes from <b>Settings › General › Site Title</b>,
+          the same setting WordPress uses for the browser tab title. Change the name once in WordPress admin and the
+          page title and every place below update together.</p>
+        <figure class="code">
+          <figcaption>Before → now (examples)</figcaption>
+          <pre class="before"><code>&lt;!-- sec-mv.php --&gt;   &lt;h1 id="hero-title"&gt;株式会社ライトコア&lt;/h1&gt;
+&lt;!-- footer.php --&gt;   &lt;h3 class="footer-map__company headline black"&gt;株式会社ライトコア&lt;/h3&gt;
+&lt;!-- header.php --&gt;   alt="RIGHTCORE"</code></pre>
+          <pre class="after"><code>&lt;!-- sec-mv.php --&gt;   &lt;h1 id="hero-title"&gt;&lt;?php echo esc_html(get_bloginfo('name')); ?&gt;&lt;/h1&gt;
+&lt;!-- footer.php --&gt;   &lt;h3 class="footer-map__company headline black"&gt;&lt;?php echo esc_html(get_bloginfo('name')); ?&gt;&lt;/h3&gt;
+&lt;!-- header.php --&gt;   alt="&lt;?php echo esc_attr(get_bloginfo('name')); ?&gt;"</code></pre>
+        </figure>
+        <div class="table-wrap">
+          <table class="status">
+            <thead><tr><th scope="col">File</th><th scope="col">Where the name now comes from the Site Title</th></tr></thead>
+            <tbody>
+              <tr><td><code>template-parts/sec-mv.php</code></td><td>MV heading (H1 on the homepage)</td></tr>
+              <tr><td><code>header.php</code></td><td>Logo link label and logo <code>alt</code></td></tr>
+              <tr><td><code>footer.php</code></td><td>Access map label, map <code>title</code>, company name on the map card, footer logo label</td></tr>
+              <tr><td><code>template-parts/sec-recruit.php</code></td><td>「…では、一緒に成長していく仲間を募集しています。」</td></tr>
+              <tr><td><code>template-parts/sec-instagram.php</code></td><td>「ぜひフォローして、…の「今」をチェックしてください。」</td></tr>
+              <tr><td><code>template-parts/marquee.php</code></td><td>Marquee label for screen readers</td></tr>
+              <tr><td><code>index.php</code></td><td>Fallback page heading</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small">Set the Site Title to the official name 「株式会社ライトコア」 on every environment. Where it is
+          still the project name, these places show the project name too. The search keywords in
+          <code>functions.php</code> still list 「ライトコア」 and 「RightCore」 on purpose: they help people find
+          the About section in site search.</p>
+      </section>
+
+      <section>
+        <h3>Not code: done in WordPress admin</h3>
+        <ul>
+          <li>Settings › General: Site Title = 「株式会社ライトコア」 (the theme shows this name on the page too, C14), Site Language = 日本語 (A2, A4).</li>
+          <li>Yoast SEO (<a href="05c-wp-checklist.html#seo-settings">settings in 5.2</a>): title and description per page, homepage canonical, Open Graph image 1200 × 630px,
+            Organization data, sitemap types, Instagram noindex (A5, A10, A17–A19).</li>
+          <li>Settings › Reading: staging "Discourage search engines" on, production off (A9).</li>
+          <li>Delete <code>/hello-world/</code>, <code>/sample-page/</code> and the duplicate Instagram post after
+            approval (A8).</li>
+          <li>Appearance › Customize › Site Identity: Site Icon from the logo (A18).</li>
+        </ul>
+      </section>
+
+      <nav class="pager" aria-label="Previous and next">
+        <a class="prev" href="05-coder-tasks.html"><span class="dir">← Previous</span>5. Coder task list</a>
+        <a class="next" href="05c-wp-checklist.html"><span class="dir">Next →</span>5.2 WP checklist &amp; plugins</a>
+      </nav>
+
+      <footer class="doc">Prepared from the rc-renewal theme on October 1, 2026. Updated October 5, 2026 with the site
+        map and page plan and checks of the published test site. This document changes no website files; progress in
+        development is noted where it happened.</footer>
+    </main>
+  </div>
+
+  <script>
+    // Add a copy button to every code block.
+    document.querySelectorAll('figure.code pre').forEach(function (pre) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-code';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', function () {
+        var text = pre.querySelector('code').textContent;
+        function done(label) {
+          btn.textContent = label;
+          setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+        }
+        try {
+          navigator.clipboard.writeText(text).then(function () { done('Copied'); }, function () { done('Select and copy'); });
+        } catch (e) {
+          done('Select and copy');
+        }
+      });
+      pre.appendChild(btn);
+    });
+  </script>
+
+</body>
+
+</html>

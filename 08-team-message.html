@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Team message · RightCore SEO Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="shell">
+    <nav class="toc" aria-label="Contents">
+      <a class="home" href="index.html">RightCore SEO Plan</a>
+      <p>Contents</p>
+      <ol>
+        <li><a href="01-simple-explanation.html">1. Simple explanation</a></li>
+        <li><a href="02-site-map.html">2. Site map &amp; page plan</a></li>
+        <li><a href="03-website-audit.html">3. Website audit</a></li>
+        <li><a href="04-discussion-guide.html">4. Discussion guide</a></li>
+        <li><a href="05-coder-tasks.html">5. Coder task list</a></li>
+        <li><a href="05b-code-changes.html">5.1 Code changes</a></li>
+        <li><a href="05c-wp-checklist.html">5.2 WP checklist &amp; plugins</a></li>
+        <li><a href="06-questions.html">6. Questions for media &amp; manager</a></li>
+        <li><a href="07-report-template.html">7. Oct 7 report template</a></li>
+        <li><a href="09-sources.html">Sources</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section id="message">
+        <h2>8. Ready-to-send team message</h2>
+        <div class="message-wrap">
+          <pre class="message" id="team-message">Hi team,
+
+Our manager asked for an SEO review of the company website, due October 7. The CEO cares about SEO (Google search) and MEO (Google Maps), so this is a priority this week. We have the project's WordPress admin accounts on development and production, with Yoast SEO installed, so we set titles, descriptions, alt text and SEO settings ourselves. We only ask management for real company information.
+
+I've attached the audit (findings A1–A22), the site map and page plan, and your task list. Main items:
+
+• Urgent: on the published test site (offshore-tng02.sakura.ne.jp/right-core) every page except the homepage is a 404. Fixing permalinks there (A22) comes first.
+• Page plan: please read section 2 before the meeting. We need to decide which pages to build, their addresses, and the Contact form setup.
+
+• Darwin: metadata in Yoast SEO (titles, descriptions, language, canonical), header menu links, Services links and headings, language switch check.
+• Cedrick: test site 404 fix (A22), staging/production indexing check, test content and sitemap list, font file size, redirects, 404 and page templates.
+• Yssabelle: News templates (built, to upload), footer and FAQ links, company details list, Contact/Footer image sizes, mobile check of your sections.
+• Collaboration: MV images (Darwin + Yssabelle), About (Darwin + Yssabelle), Works templates and Instagram decision (Cedrick + Yssabelle), Recruit (Cedrick + Darwin).
+
+Evidence for every task: before/after screenshots, page source snippets, PageSpeed or link-checker results. Save them in SEO-evidence/[your name]/[finding number].
+
+Please work in development or staging only. Nothing goes to production without manager approval. Announce in chat before uploading a shared file (functions.php, header.php, footer.php, fonts.css).
+
+Meeting: Friday, Oct 2.
+Deadline for your checks, quick fixes and evidence: Monday, Oct 5, 18:00.
+I'll compile the report on Oct 6 and submit it on Oct 7.
+
+Thanks!</pre>
+          <div class="copy-row">
+            <button type="button" class="copy" id="copy-btn">Copy message</button>
+            <span class="copy-status" id="copy-status" role="status"></span>
+          </div>
+        </div>
+      </section>
+
+      <nav class="pager" aria-label="Previous and next">
+        <a class="prev" href="07-report-template.html"><span class="dir">← Previous</span>7. Oct 7 report template</a>
+        <a class="next" href="09-sources.html"><span class="dir">Next →</span>Sources</a>
+      </nav>
+
+      <footer class="doc">Prepared from the rc-renewal theme on October 1, 2026. Updated October 5, 2026 with the site
+        map and page plan and checks of the published test site. This document changes no website files; progress in
+        development is noted where it happened.</footer>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('copy-btn');
+      var msg = document.getElementById('team-message');
+      var status = document.getElementById('copy-status');
+      btn.addEventListener('click', function () {
+        var text = msg.textContent;
+        function selectText() {
+          var range = document.createRange();
+          range.selectNodeContents(msg);
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          status.textContent = 'Text selected. Press Ctrl+C or ⌘C to copy.';
+        }
+        try {
+          navigator.clipboard.writeText(text).then(function () {
+            status.textContent = 'Copied.';
+          }, selectText);
+        } catch (e) {
+          selectText();
+        }
+      });
+    })();
+  </script>
+
+</body>
+
+</html>

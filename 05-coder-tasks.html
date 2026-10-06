@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Coder task lists · RightCore SEO Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="shell">
+    <nav class="toc" aria-label="Contents">
+      <a class="home" href="index.html">RightCore SEO Plan</a>
+      <p>Contents</p>
+      <ol>
+        <li><a href="01-simple-explanation.html">1. Simple explanation</a></li>
+        <li><a href="02-site-map.html">2. Site map &amp; page plan</a></li>
+        <li><a href="03-website-audit.html">3. Website audit</a></li>
+        <li><a href="04-discussion-guide.html">4. Discussion guide</a></li>
+        <li><a href="05-coder-tasks.html" aria-current="page">5. Coder task list</a></li>
+        <li><a href="05b-code-changes.html">5.1 Code changes</a></li>
+        <li><a href="05c-wp-checklist.html">5.2 WP checklist &amp; plugins</a></li>
+        <li><a href="06-questions.html">6. Questions for media &amp; manager</a></li>
+        <li><a href="07-report-template.html">7. Oct 7 report template</a></li>
+        <li><a href="09-sources.html">Sources</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section id="tasks">
+        <h2>5. Coder task list</h2>
+        <p class="lede">"Before Oct 7" tasks are checks and small fixes in
+          development or staging. Production changes wait for manager approval. The code for each change is in
+          <a href="05b-code-changes.html">5.1 Code changes</a>.</p>
+
+        <div class="findings">
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Plan the News list and post templates (A1)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>News: new <code>archive-news.php</code>, <code>single-news.php</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Done in development on Oct 5 (list with featured post and pagination, detail page, selectable
+                「News一覧」 page template). Upload to the test site after A22 is fixed.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd><code>/news/</code> and one news post show real content. <strong>Status: built in
+                  development.</strong></dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Screenshots and page source showing the real H1 and unique title.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Plan by Oct 5; build target Oct 16 (confirm in report)</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Fix footer and FAQ links (A3)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Footer, FAQ: <code>footer.php</code>, <code>sec-faq.php</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd><strong>Done in development (Oct 5, <a href="05b-code-changes.html#nav-links">C2</a>).</strong> Footer site
+                map links point to each page address (<code>/about/</code>, <code>/service/</code>,
+                <code>/company/</code>, <code>/works/</code>, <code>/recruit/</code>, <code>/faq/</code>, News list,
+                <code>/privacy-policy/</code>). Facebook and X use dummy addresses. Still to do: replace the dummy
+                addresses once the manager confirms the accounts.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>No <code>#</code> links in footer and FAQ. Page links return 404 only until each page is published
+                (agreed).</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Link checker result and click test from <code>/</code> and <code>/about/</code>.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Check company details (A14)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Access, Footer: <code>footer.php</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>List every place the address, phone, email and Instagram appear. Update only after official
+                details are confirmed.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>A list of current values ready to compare with the Business Profile.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Screenshot of each location.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Compress Contact and Footer backgrounds (A6)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Contact, Footer: <code>footer/cta-bg.jpg</code>, <code>footer/footer-bg.jpg</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Resize and compress; keep the same look.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Each file under about 300 KB.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>File sizes before and after; screenshot comparison.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>Medium</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Mobile check of FAQ, News, Testimonials, Contact, Access and Footer (A13)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>FAQ, News, Testimonials, Contact, Access, Footer</dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Check 375px, 390px and 768px for overflow, small text and small tap targets.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Screenshots and a list of problems found.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Evidence folder.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>Medium</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Prepare testimonials for replacement (A15)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Testimonials: <code>sec-testimonials.php</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>No change until the manager confirms which testimonials are real and approved.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Ready to swap content when approved.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Manager approval message.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High (decision), Low (coding)</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>After approval</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Fix 404s on the published test site (A22)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Test site: Settings › Permalinks, <code>right-core/.htaccess</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Save permalinks in the test site admin; if that fails, upload the WordPress <code>.htaccess</code>
+                with <code>RewriteBase /right-core/</code>.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd><code>/right-core/news/</code> and posts load with the theme.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Status codes and screenshots before and after.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>As soon as possible (blocks testing every page)</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Indexing check on staging and production (A9)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Site-wide settings, <code>/robots.txt</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Record Settings › Reading on each server, homepage robots meta and robots.txt. Report any risk at
+                once.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>One-page note: staging hidden, production open (or the problem found).</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Screenshots and page source snippets.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Test content and sitemap cleanup plan (A8, A17)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Site-wide: posts, pages, sitemap</dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>List sample, duplicate and test content on production; propose which sitemap types to keep.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Cleanup list for manager approval.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Sitemap screenshots before and after (after approval).</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>List by Oct 5; cleanup after approval</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Font file replacement (A6)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Shared: <code>assets/css/base/fonts.css</code>, <code>assets/css/fonts/</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Test a subset WOFF2 or Google Fonts Noto Sans JP in development; compare look and size.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Font download reduced from 8.9 MB.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>DevTools Network screenshot before and after.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5 (test); upload after review</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Redirect and HTTPS check (A10)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Production server</dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Test http, https, www and non-www versions of the homepage.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>List of where each version goes and its status code.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Command output or redirect-checker screenshots.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>Medium</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Build the 404 page (A20)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>New <code>404.php</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Build a simple error page in development.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Fake URL shows the new 404 page.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Screenshots and status code.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>Medium</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 16 (confirm in report)</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Set up metadata in Yoast SEO (A2, A4, A5, A10, A18, A19)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>WordPress admin (development, then production): Yoast SEO › Settings, Settings › General (list in <a href="05c-wp-checklist.html#seo-settings">5.2</a>)</dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Set the site title and language, then write and set a unique title and description for each page,
+                canonical and Open Graph in Yoast SEO. Remove any theme output that duplicates it.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Every page has one title and one description.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Page source of each page before and after.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Development by Oct 7</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Fix header menu links (A3)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Header: <code>header.php</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd><strong>Done in development (Oct 5, <a href="05b-code-changes.html#nav-links">C2</a>).</strong> Menu
+                items and both contact buttons point to their page addresses, including 「Company 会社概要」 →
+                <code>/company/</code> and contact → <code>/contact/</code>. The logo label and <code>alt</code> now
+                use the Site Title (<a href="05b-code-changes.html#site-name">C14</a>).</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Every menu item points to the same page address from every page; built pages open, the others are
+                404 until published.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Click test recording or link checker.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Services links and headings (A3, A11)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Services: <code>sec-service.php</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Links <strong>done in development (Oct 5, <a href="05b-code-changes.html#buttons">C3</a>)</strong>:
+                both もっと見る buttons → <code>/service/</code>, card links → <code>/service/#creative</code>,
+                <code>#design</code>, <code>#media</code>, <code>#global</code>. Still to do: keep one heading per
+                service and give the section a unique id (C4).</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>No placeholder links; clean heading outline.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Heading outline screenshot; link checker.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High (links), Low (headings)</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Language switch check (A16)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Header: <code>lang.js</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Test the JP/EN switch on production and record the result.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Short note: works or does not work.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Screen recording.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>Medium</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Marquee mobile check (A13)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Marquee</dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Check 375px, 390px and 768px.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Screenshots.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Evidence folder.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>Low</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>MV images: size, loading and alt (A6, A7)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>MV: <code>sec-mv.php</code>, <code>mv01–04.jpg</code>,
+                <code>header_mv.jpg</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Compress photos, add <code>width</code>/<code>height</code>, <code>fetchpriority="high"</code> on
+                the first photo, and draft alt text. Replace with licensed photos when supplied.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>MV photos under about 300 KB each, with alt text.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Network screenshot before and after; page source.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>About button, alt text and id (A3, A7, A11, A12)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>About: <code>sec-about.php</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>もっと見る link <strong>done in development</strong> (→ <code>/about/</code>, C3). Still to do: add alt to the photo; keep the unique heading id.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Working button and alt text.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Click test; page source.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Works list and post templates (A1)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Works: new <code>archive-works.php</code>,
+                <code>single-works.php</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Plan and build; use WordPress image sizes for thumbnails.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd><code>/works/</code> and each work page show real content.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Screenshots and page source.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Plan by Oct 5; build target Oct 16</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Instagram feed plugin preparation (A1, A8, <a href="02-site-map.html#sns">SNS page plan</a>)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Instagram: <code>sec-instagram.php</code>, post type in
+                <code>functions.php</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Shortlist feed plugins for the manager (layout options, account type, price). List the temporary
+                <code>/instagram/</code> addresses that will need redirects. Flag the duplicate post.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Plugin shortlist and redirect list.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Manager reply.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Recruit button, image and id (A3, A6, A7, A11)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd>Recruit: <code>sec-recruit.php</code>,
+                <code>sec04-bg.png</code>, <code>img02.png</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>もっと見る link <strong>done in development</strong> (→ <code>/recruit/</code>, C3). Still to do:
+                compress the background, add alt to the photo, unique heading id.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Working link, smaller files, alt text.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Link checker; file sizes; page source.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>High</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 5</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="task">
+          <dl class="fields">
+            <div>
+              <dt>Task</dt>
+              <dd>Remove unused theme images (A21)</dd>
+            </div>
+            <div>
+              <dt>Section/file</dt>
+              <dd><code>assets/img/top/</code></dd>
+            </div>
+            <div>
+              <dt>Specific action</dt>
+              <dd>Confirm <code>mv-img.png</code>, <code>header_mv.png</code> and <code>sec01-ellipse-bg.png</code>
+                are unused, then delete on staging.</dd>
+            </div>
+            <div>
+              <dt>Expected output</dt>
+              <dd>Smaller theme folder; site unchanged.</dd>
+            </div>
+            <div>
+              <dt>Verification</dt>
+              <dd>Visual check after removal.</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>Low</dd>
+            </div>
+            <div>
+              <dt>Proposed deadline</dt>
+              <dd>Oct 9</dd>
+            </div>
+          </dl>
+        </div>
+        </div>
+
+      </section>
+
+      <nav class="pager" aria-label="Previous and next">
+        <a class="prev" href="04-discussion-guide.html"><span class="dir">← Previous</span>4. Discussion guide</a>
+        <a class="next" href="05b-code-changes.html"><span class="dir">Next →</span>5.1 Code changes</a>
+      </nav>
+
+      <footer class="doc">Prepared from the rc-renewal theme on October 1, 2026. Updated October 5, 2026 with the site
+        map and page plan and checks of the published test site. This document changes no website files; progress in
+        development is noted where it happened.</footer>
+    </main>
+  </div>
+
+</body>
+
+</html>

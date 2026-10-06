@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow">
+  <title>WP checklist &amp; plugins · RightCore SEO Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="shell">
+    <nav class="toc" aria-label="Contents">
+      <a class="home" href="index.html">RightCore SEO Plan</a>
+      <p>Contents</p>
+      <ol>
+        <li><a href="01-simple-explanation.html">1. Simple explanation</a></li>
+        <li><a href="02-site-map.html">2. Site map &amp; page plan</a></li>
+        <li><a href="03-website-audit.html">3. Website audit</a></li>
+        <li><a href="04-discussion-guide.html">4. Discussion guide</a></li>
+        <li><a href="05-coder-tasks.html">5. Coder task list</a></li>
+        <li><a href="05b-code-changes.html">5.1 Code changes</a></li>
+        <li><a href="05c-wp-checklist.html" aria-current="page">5.2 WP checklist &amp; plugins</a></li>
+        <li><a href="06-questions.html">6. Questions for media &amp; manager</a></li>
+        <li><a href="07-report-template.html">7. Oct 7 report template</a></li>
+        <li><a href="09-sources.html">Sources</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section>
+        <h2>5.2 WordPress checklist &amp; plugins</h2>
+        <p class="lede">Our current 23-item checklist (Coder / Seira) makes a site that works. This page adds what it
+          needs for search: SEO notes on the existing items, new SEO checks 24–50, the plugins to add, and how to set
+          them up. Use it on RightCore and on every future WordPress site.</p>
+        <div class="note key">
+          <p><b>What plugins can and cannot do</b></p>
+          <p>Plugins fix the technical side: Google can find, read and load every page quickly. Ranking itself comes
+            from useful pages (services, real Works, News), the Google Business Profile for map results, and other
+            sites linking to us. A site with every plugin installed and empty pages will not rank.</p>
+        </div>
+        <ol class="topics">
+          <li><a href="#current"><b>1. Notes on our current checklist</b><span>What to add to items 1–23 so they also help SEO.</span></a></li>
+          <li><a href="#new"><b>2. New SEO checks (24–50)</b><span>Checklist to add to the sheet, grouped by when to do them.</span></a></li>
+          <li><a href="#plugins"><b>3. Plugins</b><span>Keep, add, and avoid, with the reason for each.</span></a></li>
+          <li><a href="#seo-settings"><b>4. Yoast SEO settings</b><span>Every Yoast setting for RightCore, and what to fill in each page.</span></a></li>
+          <li><a href="#code"><b>5. Code for checklist items</b><span>Yoast breadcrumbs, fixed header, uploads .htaccess, reCAPTCHA.</span></a></li>
+          <li><a href="#after-launch"><b>6. After launch</b><span>Search Console, Business Profile, and the monthly routine.</span></a></li>
+        </ol>
+      </section>
+
+      <!-- 1 -->
+      <section id="current">
+        <h3>1. Notes on our current checklist</h3>
+        <p>Keep every item. The notes below say what to add for SEO. Items not listed (2, 7, 8, 9, 14, 17, 18, 19, 23)
+          need no SEO change.</p>
+        <div class="table-wrap">
+          <table class="status">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Current rule</th>
+                <th>Add for SEO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1, 5</td>
+                <td>Matches Figma; responsive margin, padding, font size</td>
+                <td>Also check at 375 / 390 / 768px: no sideways scroll, body text at least 14px, buttons and links at
+                  least 44 × 44px to tap. Google ranks the mobile version of the page.</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Logo has a link</td>
+                <td>Link to <code>home_url('/')</code>. The logo image <code>alt</code> is the company name, not empty and not "logo". The theme now prints it from the Site Title (<code>get_bloginfo('name')</code>, C14), so set Site Title to 「株式会社ライトコア」.</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Breadcrumbs have links</td>
+                <td>Print them with <code>yoast_breadcrumb()</code>; Yoast adds the BreadcrumbList structured data so Google can show the path in results
+                  (<a href="#breadcrumbs">code in 5</a>). Not on the homepage. Last item is the current page, without a link.</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>All buttons and navigation have links</td>
+                <td>No <code>href="#"</code> or <code>href=""</code>. Section links written as full addresses
+                  (<code>home_url('/#works')</code>) so they work from every page. Run a link checker (check 41).</td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td>SEO plugin installed</td>
+                <td>Our SEO plugin is <b>Yoast SEO</b>. Only one SEO plugin, and it must be <b>set up</b>, not just installed (<a href="#seo-settings">section 4</a>).</td>
+              </tr>
+              <tr>
+                <td>11</td>
+                <td>Fixed header / hamburger after scroll</td>
+                <td>The page must not jump when the header becomes fixed (layout shift, a Core Web Vitals score).
+                  Reserve the header height (<a href="#fixed-header">code in 5</a>).</td>
+              </tr>
+              <tr>
+                <td>12</td>
+                <td>Site title same as WordPress title</td>
+                <td>Site Title = official company name 「株式会社ライトコア」, not a project name. Each page's title is
+                  then 「Page name | 株式会社ライトコア」, written in the Yoast box. The homepage title also names the main
+                  service.</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td>Favicon</td>
+                <td>Square, at least 512 × 512px, set in Appearance › Customize › Site Identity. Google shows it next to
+                  our result.</td>
+              </tr>
+              <tr>
+                <td>15</td>
+                <td>contact0 / contact0-check / contact0-finish</td>
+                <td>Set <code>contact0-check</code> and <code>contact0-finish</code> to <b>noindex</b> and remove them
+                  from the sitemap (Yoast box › Advanced › search results: No). Only the form page itself should appear in Google.</td>
+              </tr>
+              <tr>
+                <td>16</td>
+                <td>reCAPTCHA for MW WP Form</td>
+                <td>reCAPTCHA adds about 300–500 KB of script. Prefer loading it only on the contact pages
+                  (<a href="#recaptcha">code in 5</a>).</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td><code>.htaccess</code> in <code>wp-content/uploads/</code></td>
+                <td>Use the content in <a href="#uploads-htaccess">section 5</a>: it blocks PHP but must not block images,
+                  or Google cannot load them.</td>
+              </tr>
+              <tr>
+                <td>21</td>
+                <td>All In One Security (AIOS)</td>
+                <td>Do not turn on "Disable REST API for non-logged-in users" without testing: it can break Site Kit,
+                  the block editor and forms. After enabling the firewall, check that Googlebot is not blocked
+                  (Search Console › URL Inspection › Test live URL).</td>
+              </tr>
+              <tr>
+                <td>22</td>
+                <td>UpdraftPlus backup (4 files)</td>
+                <td>Back up before every plugin install and before changing permalinks or redirects.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small">MW WP Form now gets only maintenance releases (the main maintainer changed). It still works,
+          but for new sites compare it with Snow Monkey Forms or Contact Form 7 before choosing.</p>
+      </section>
+
+      <!-- 2 -->
+      <section id="new">
+        <h3>2. New SEO checks (24–50)</h3>
+        <p>Add these rows to the checklist sheet. The audit finding in brackets shows why each one matters on
+          RightCore. Ticks here are saved only in your own browser.</p>
+
+        <div class="checklist" data-store="rc-wp-checklist">
+          <h4>Before launch: WordPress admin</h4>
+          <div class="table-wrap">
+            <table class="status check-table">
+              <thead>
+                <tr><th>#</th><th>Coder</th><th>Seira</th><th>Check</th><th>How to confirm</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>24</td><td><input type="checkbox" aria-label="24 Coder"></td><td><input type="checkbox" aria-label="24 Seira"></td>
+                  <td>Settings › General › Site Language is 日本語 (A4)</td><td>Page source shows <code>&lt;html lang="ja"&gt;</code></td></tr>
+                <tr><td>25</td><td><input type="checkbox" aria-label="25 Coder"></td><td><input type="checkbox" aria-label="25 Seira"></td>
+                  <td>Settings › Permalinks is 「投稿名」 (post name). Page and post slugs are short English or romaji, no Japanese characters</td><td>Addresses look like <code>/works/sushi-okazaki/</code></td></tr>
+                <tr><td>26</td><td><input type="checkbox" aria-label="26 Coder"></td><td><input type="checkbox" aria-label="26 Seira"></td>
+                  <td>Staging: Settings › Reading › 「検索エンジンでの表示」 is <b>on</b> (hidden). Production: <b>off</b> (A9)</td><td>Production page source has no <code>noindex</code></td></tr>
+                <tr><td>27</td><td><input type="checkbox" aria-label="27 Coder"></td><td><input type="checkbox" aria-label="27 Seira"></td>
+                  <td>Sample content deleted: 「Hello world!」, 「Sample Page」, test and duplicate posts (A8)</td><td><code>/hello-world/</code> and <code>/sample-page/</code> return 404</td></tr>
+                <tr><td>28</td><td><input type="checkbox" aria-label="28 Coder"></td><td><input type="checkbox" aria-label="28 Seira"></td>
+                  <td>WordPress Address and Site Address both start with <code>https://</code> and use the final domain</td><td>Settings › General</td></tr>
+                <tr><td>29</td><td><input type="checkbox" aria-label="29 Coder"></td><td><input type="checkbox" aria-label="29 Seira"></td>
+                  <td>Unused plugins and themes deleted, not only deactivated</td><td>Plugins screen</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Every page</h4>
+          <div class="table-wrap">
+            <table class="status check-table">
+              <thead>
+                <tr><th>#</th><th>Coder</th><th>Seira</th><th>Check</th><th>How to confirm</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>30</td><td><input type="checkbox" aria-label="30 Coder"></td><td><input type="checkbox" aria-label="30 Seira"></td>
+                  <td>Unique title, about 30 full-width characters, main keyword first (A2)</td><td>Page source <code>&lt;title&gt;</code></td></tr>
+                <tr><td>31</td><td><input type="checkbox" aria-label="31 Coder"></td><td><input type="checkbox" aria-label="31 Seira"></td>
+                  <td>Unique meta description, about 80–120 full-width characters, written for people (A5)</td><td>Exactly one <code>name="description"</code></td></tr>
+                <tr><td>32</td><td><input type="checkbox" aria-label="32 Coder"></td><td><input type="checkbox" aria-label="32 Seira"></td>
+                  <td>One H1 per page; H2, H3 in order without skipping; no heading used only for styling (A11)</td><td>Heading outline in DevTools or an extension</td></tr>
+                <tr><td>33</td><td><input type="checkbox" aria-label="33 Coder"></td><td><input type="checkbox" aria-label="33 Seira"></td>
+                  <td>Meaningful images have short Japanese alt text; decorative images have <code>alt=""</code> (A7)</td><td>Page source</td></tr>
+                <tr><td>34</td><td><input type="checkbox" aria-label="34 Coder"></td><td><input type="checkbox" aria-label="34 Seira"></td>
+                  <td>Every <code>&lt;img&gt;</code> has <code>width</code> and <code>height</code>; images below the first screen have <code>loading="lazy"</code>; the main top image does not (A6)</td><td>Page source</td></tr>
+                <tr><td>35</td><td><input type="checkbox" aria-label="35 Coder"></td><td><input type="checkbox" aria-label="35 Seira"></td>
+                  <td>One canonical tag pointing to the page's own https address (A10)</td><td>Exactly one <code>rel="canonical"</code></td></tr>
+                <tr><td>36</td><td><input type="checkbox" aria-label="36 Coder"></td><td><input type="checkbox" aria-label="36 Seira"></td>
+                  <td>Share preview: OG title, description and a 1200 × 630px image (A18)</td><td>Paste the URL in a LINE or Facebook share test</td></tr>
+                <tr><td>37</td><td><input type="checkbox" aria-label="37 Coder"></td><td><input type="checkbox" aria-label="37 Seira"></td>
+                  <td>Important text is real HTML text, not inside images or loaded only by JavaScript (A12)</td><td>View page source and search for the text</td></tr>
+                <tr><td>38</td><td><input type="checkbox" aria-label="38 Coder"></td><td><input type="checkbox" aria-label="38 Seira"></td>
+                  <td>List and post pages show real content, not a placeholder; every post type has its templates (A1)</td><td>Open each list and one post</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Speed and site-wide</h4>
+          <div class="table-wrap">
+            <table class="status check-table">
+              <thead>
+                <tr><th>#</th><th>Coder</th><th>Seira</th><th>Check</th><th>How to confirm</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>39</td><td><input type="checkbox" aria-label="39 Coder"></td><td><input type="checkbox" aria-label="39 Seira"></td>
+                  <td>Photos under about 300 KB, WebP where possible; no font file over 1 MB (A6)</td><td>DevTools › Network, cache disabled</td></tr>
+                <tr><td>40</td><td><input type="checkbox" aria-label="40 Coder"></td><td><input type="checkbox" aria-label="40 Seira"></td>
+                  <td>PageSpeed Insights, <b>mobile</b>: Performance 70+ (goal 90), LCP under 2.5 s, CLS under 0.1</td><td>Save the report link</td></tr>
+                <tr><td>41</td><td><input type="checkbox" aria-label="41 Coder"></td><td><input type="checkbox" aria-label="41 Seira"></td>
+                  <td>No broken links or 404s inside the site (A3)</td><td>Crawler (Screaming Frog, free up to 500 URLs)</td></tr>
+                <tr><td>42</td><td><input type="checkbox" aria-label="42 Coder"></td><td><input type="checkbox" aria-label="42 Seira"></td>
+                  <td>A designed 404 page with links to the main pages; status is still 404 (A20)</td><td>Open a fake address</td></tr>
+                <tr><td>43</td><td><input type="checkbox" aria-label="43 Coder"></td><td><input type="checkbox" aria-label="43 Seira"></td>
+                  <td>http, www and non-www all redirect with 301 to one https address (A10)</td><td>Redirect checker or <code>curl -I</code></td></tr>
+                <tr><td>44</td><td><input type="checkbox" aria-label="44 Coder"></td><td><input type="checkbox" aria-label="44 Seira"></td>
+                  <td>Sitemap lists only real pages: pages, news, works. Not users, attachments, thank-you pages (A8, A17)</td><td>Open <code>/sitemap_index.xml</code> (Yoast)</td></tr>
+                <tr><td>45</td><td><input type="checkbox" aria-label="45 Coder"></td><td><input type="checkbox" aria-label="45 Seira"></td>
+                  <td>Old addresses that changed have a 301 redirect to the new one (e.g. temporary <code>/instagram/</code> posts)</td><td>Redirection plugin list</td></tr>
+                <tr><td>46</td><td><input type="checkbox" aria-label="46 Coder"></td><td><input type="checkbox" aria-label="46 Seira"></td>
+                  <td>Organization structured data with official name, logo, address, phone (A19)</td><td>Rich Results Test: no errors</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Launch day and after</h4>
+          <div class="table-wrap">
+            <table class="status check-table">
+              <thead>
+                <tr><th>#</th><th>Coder</th><th>Seira</th><th>Check</th><th>How to confirm</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>47</td><td><input type="checkbox" aria-label="47 Coder"></td><td><input type="checkbox" aria-label="47 Seira"></td>
+                  <td>Search Console verified for the domain; sitemap submitted (A17)</td><td>Sitemaps report shows 「成功しました」</td></tr>
+                <tr><td>48</td><td><input type="checkbox" aria-label="48 Coder"></td><td><input type="checkbox" aria-label="48 Seira"></td>
+                  <td>Google Analytics 4 installed once (not twice by theme and plugin)</td><td>GA4 Realtime shows our own visit</td></tr>
+                <tr><td>49</td><td><input type="checkbox" aria-label="49 Coder"></td><td><input type="checkbox" aria-label="49 Seira"></td>
+                  <td>Company name, address and phone are exactly the same on the site and the Google Business Profile; the profile links to the site (A14)</td><td>Side-by-side screenshot</td></tr>
+                <tr><td>50</td><td><input type="checkbox" aria-label="50 Coder"></td><td><input type="checkbox" aria-label="50 Seira"></td>
+                  <td>One week after launch: Search Console › Pages shows the main pages as indexed, and no unexpected errors</td><td>Screenshot of the Pages report</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p><button type="button" class="copy" data-reset>Clear my ticks</button></p>
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section id="plugins">
+        <h3>3. Plugins</h3>
+        <p>Fewer plugins load faster and break less. Add a plugin only when it does something the theme or the host
+          cannot.</p>
+
+        <h4>Keep (already in our rules)</h4>
+        <div class="table-wrap">
+          <table class="status">
+            <thead><tr><th>Plugin</th><th>Use</th><th>SEO note</th></tr></thead>
+            <tbody>
+              <tr><td>Yoast SEO (only SEO plugin)</td><td>Titles, descriptions, canonical, OG, sitemap, breadcrumbs, structured data</td><td>The most important plugin for SEO. See section 4.</td></tr>
+              <tr><td>CPT UI</td><td>Custom post types</td><td>Each type needs <code>has_archive</code> and a slug set, and its own list and post templates.</td></tr>
+              <tr><td>MW WP Form + reCAPTCHA</td><td>Contact form</td><td>Thank-you and check pages noindex. Maintenance-only now; see note in section 1.</td></tr>
+              <tr><td>WP Mail SMTP</td><td>Mail delivery</td><td>No SEO effect.</td></tr>
+              <tr><td>All In One Security</td><td>Security</td><td>Test that Googlebot and Site Kit still work after changing settings.</td></tr>
+              <tr><td>UpdraftPlus</td><td>Backups</td><td>No SEO effect. Schedule backups at night, not during busy hours.</td></tr>
+              <tr><td>Intuitive Custom Post Order</td><td>Post order</td><td>No SEO effect.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>Add</h4>
+        <div class="findings">
+          <div class="task">
+            <dl class="fields">
+              <div><dt>Plugin</dt><dd><b>EWWW Image Optimizer</b> <span class="chip p-high">Add</span></dd></div>
+              <div><dt>Why</dt><dd>Compresses images when they are uploaded, resizes very large uploads, and can serve
+                  WebP. Our audit found 1–2.4 MB photos; staff uploading News and Works images will keep adding them
+                  without this.</dd></div>
+              <div><dt>Settings</dt><dd>Resize images: max 2560 × 2560. Remove metadata: on. WebP conversion: on (test
+                  that images still show after enabling). Run "Bulk Optimize" once for existing uploads.</dd></div>
+              <div><dt>Alternative</dt><dd>Converter for Media (WebP only). Do not use two image plugins together.</dd></div>
+            </dl>
+          </div>
+          <div class="task">
+            <dl class="fields">
+              <div><dt>Plugin</dt><dd><b>Redirection</b> <span class="chip p-high">Add</span></dd></div>
+              <div><dt>Why</dt><dd>Creates 301 redirects from the admin when an address changes, and logs 404s so we can
+                  see broken links visitors actually hit. Needed when the temporary <code>/instagram/</code> posts are
+                  replaced by the feed plugin.</dd></div>
+              <div><dt>Settings</dt><dd>Monitor permalink changes: on. 404 log: keep 1 month. Check the 404 log monthly.</dd></div>
+              <div><dt>Note</dt><dd>Yoast SEO Premium includes a redirect manager; with the free version, use Redirection.</dd></div>
+            </dl>
+          </div>
+          <div class="task">
+            <dl class="fields">
+              <div><dt>Plugin</dt><dd><b>Site Kit by Google</b> <span class="chip p-med">Add at launch</span></dd></div>
+              <div><dt>Why</dt><dd>Connects Search Console and Google Analytics 4 in one step and shows their numbers in
+                  the dashboard. Easiest way for the team to see search traffic.</dd></div>
+              <div><dt>Settings</dt><dd>Connect Search Console and Analytics with the company Google account (not a
+                  personal one). Do not add the GA4 tag again in the theme.</dd></div>
+              <div><dt>Alternative</dt><dd>Verify Search Console in Yoast › Site connections and add GA4 by
+                  hand. Either way, only once.</dd></div>
+            </dl>
+          </div>
+          <div class="task">
+            <dl class="fields">
+              <div><dt>Plugin</dt><dd><b>Cache plugin: WP Fastest Cache</b> <span class="chip p-med">Only if the host has no cache</span></dd></div>
+              <div><dt>Why</dt><dd>Serves saved HTML instead of building each page in PHP, so the server responds faster.</dd></div>
+              <div><dt>First check</dt><dd>Many Japanese hosts have a server-side cache in the control panel (for example
+                  Sakura's コンテンツキャッシュ, Xserver's サーバーキャッシュ). If it is on, do not add a cache plugin. If the
+                  server runs LiteSpeed, use LiteSpeed Cache instead.</dd></div>
+              <div><dt>Settings</dt><dd>Cache system: on. Minify HTML/CSS: on. Combine JS: test carefully (can break
+                  sliders). Clear the cache after every deploy.</dd></div>
+            </dl>
+          </div>
+          <div class="task">
+            <dl class="fields">
+              <div><dt>Plugin</dt><dd><b>Regenerate Thumbnails</b> <span class="chip p-low">Temporary</span></dd></div>
+              <div><dt>Why</dt><dd>Creates new image sizes for old uploads after we add <code>add_image_size()</code>
+                  (<a href="05b-code-changes.html#works">C8</a>). Run once, then delete.</dd></div>
+            </dl>
+          </div>
+          <div class="task">
+            <dl class="fields">
+              <div><dt>Plugin</dt><dd><b>Instagram feed</b> <span class="chip s-check">Decision pending</span></dd></div>
+              <div><dt>Why</dt><dd>Planned for the SNS area (<a href="02-site-map.html">section 2</a>). Choose one that
+                  loads images lazily and does not add the feed's posts as pages on our site.</dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <h4>Avoid</h4>
+        <div class="table-wrap">
+          <table class="status">
+            <thead><tr><th>Avoid</th><th>Why</th><th>Instead</th></tr></thead>
+            <tbody>
+              <tr><td>A second SEO plugin</td><td>Two titles, two descriptions, two sitemaps; Google gets mixed signals</td><td>Yoast SEO only, fully set up</td></tr>
+              <tr><td>Two cache or two image plugins</td><td>They conflict and can show old or broken pages</td><td>One of each</td></tr>
+              <tr><td>Broken Link Checker plugin</td><td>Runs constantly on the server and slows the site</td><td>An external crawler once a month (check 41)</td></tr>
+              <tr><td>Page builders (Elementor etc.) on a coded theme</td><td>Heavy CSS and JS on every page</td><td>Theme templates</td></tr>
+              <tr><td>"Auto SEO" plugins that add keywords or many tag pages</td><td>Thin, near-empty pages hurt quality</td><td>Write titles and descriptions by hand</td></tr>
+              <tr><td>Hard-coding meta tags or GA in <code>header.php</code></td><td>Duplicates what the plugins print</td><td>Plugins only (<a href="05b-code-changes.html#seo-plugin">C12</a>)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 4 -->
+      <section id="seo-settings">
+        <h3>4. Yoast SEO settings</h3>
+        <p>The project uses <b>Yoast SEO</b>. Keep it as the only SEO plugin. Menu names below are from
+          <b>Yoast SEO › Settings</b>; they can move slightly between versions. Make the settings on development first,
+          screenshot each screen for the evidence folder, then repeat on production after approval.</p>
+        <div class="note">
+          <p><b>Install Yoast everywhere we test.</b> It is on the development and production servers, but not in the
+            Local copy (<code>rcrenewalproject</code>) or on the published test site. Install the same version there so
+            the theme is tested with Yoast's real output.</p>
+        </div>
+
+        <div class="table-wrap">
+          <table class="status">
+            <thead><tr><th>Where in Yoast</th><th>Setting</th><th>Value for RightCore</th></tr></thead>
+            <tbody>
+              <tr><td>General › Site features</td><td>XML sitemaps, Open Graph data</td><td>On. Yoast then replaces the
+                  WordPress sitemap; the address becomes <code>/sitemap_index.xml</code> (A17).</td></tr>
+              <tr><td>General › Site basics</td><td>Website name, Title separator, Site image</td><td>Name
+                  「株式会社ライトコア」. Separator <code>|</code>. Site image = the 1200 × 630px share image (A18).</td></tr>
+              <tr><td>General › Site representation</td><td>Organization or person</td><td>Organization. Name
+                  「株式会社ライトコア」, logo (square, at least 112 × 112px), other profiles: the confirmed Instagram URL only
+                  (A14, A19).</td></tr>
+              <tr><td>General › Site connections</td><td>Google verification code</td><td>Paste the Search Console code
+                  (skip if Site Kit verifies the site).</td></tr>
+              <tr><td>Content types › Homepage</td><td>SEO title, meta description</td><td>Title: 「株式会社ライトコア｜【main
+                  service】｜大阪」. Description about 100 characters: who we are, what we do, where. If Settings › Reading
+                  uses a static front page, write these in that page's Yoast box instead.</td></tr>
+              <tr><td>Content types › Pages</td><td>Show pages in search results; SEO title</td><td>On.
+                  <code>%%title%% %%sep%% %%sitename%%</code></td></tr>
+              <tr><td>Content types › Posts</td><td>Show in search results</td><td>Off while the site has no blog (only
+                  「Hello world!」, A8).</td></tr>
+              <tr><td>Content types › ニュース (news)</td><td>Show in search results</td><td>On. Title
+                  <code>%%title%% %%sep%% %%sitename%%</code>. The list is the 「News一覧」 page, so its title and
+                  description are set in that page's Yoast box.</td></tr>
+              <tr><td>Content types › 制作実績 (works)</td><td>Show in search results; archive</td><td>On. Archive title
+                  「制作実績 | 株式会社ライトコア」 and its own description.</td></tr>
+              <tr><td>Content types › Instagram</td><td>Show in search results</td><td><b>Off</b> until the feed plugin
+                  replaces the post type. This also removes it from the sitemap.</td></tr>
+              <tr><td>Categories &amp; tags</td><td>Show categories / tags in search results</td><td>Off (not used on the
+                  site).</td></tr>
+              <tr><td>Advanced › Author archives</td><td>Enable author archives</td><td>Off. Removes
+                  <code>/author/…/</code> and the admin username from the sitemap (A8).</td></tr>
+              <tr><td>Advanced › Date archives</td><td>Enable date archives</td><td>Off.</td></tr>
+              <tr><td>Advanced › Media pages</td><td>Enable media pages</td><td>Off (attachment addresses go to the file
+                  itself).</td></tr>
+              <tr><td>Advanced › Special pages</td><td>Search page and 404 titles</td><td>Japanese:
+                  「「%%searchphrase%%」の検索結果 %%sep%% %%sitename%%」, 「ページが見つかりません %%sep%% %%sitename%%」. Yoast
+                  already sets search results to noindex.</td></tr>
+              <tr><td>Advanced › Breadcrumbs</td><td>Enable breadcrumbs for your theme</td><td>On. Home anchor text
+                  「トップ」. Then add <code>yoast_breadcrumb()</code> to the theme (section 5).</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>In each page and post (Yoast box under the editor)</h4>
+        <ul>
+          <li><b>SEO tab:</b> SEO title, slug (short English), meta description. Write them; do not leave the template
+            default on important pages.</li>
+          <li><b>Advanced tab › 「Allow search engines to show this content in search results?」:</b> <b>No</b> on
+            <code>contact0-check</code> and <code>contact0-finish</code>. Noindex pages are left out of the sitemap
+            automatically.</li>
+          <li><b>Social tab:</b> share image when a page needs a different one from the site image.</li>
+          <li>The traffic lights (SEO and readability analysis) are designed around English and are only a guide on a
+            Japanese site. Never repeat keywords to make them green.</li>
+        </ul>
+
+        <h4>Check after setting</h4>
+        <ul>
+          <li>Page source: one <code>&lt;title&gt;</code>, one <code>name="description"</code>, one
+            <code>rel="canonical"</code>, one <code>yoast-schema-graph</code> script.</li>
+          <li><code>/sitemap_index.xml</code> lists pages, news and works only; <code>/wp-sitemap.xml</code> redirects to
+            it.</li>
+          <li>Rich Results Test on the homepage and one news post: Organization and BreadcrumbList with no errors.</li>
+        </ul>
+      </section>
+
+      <!-- 5 -->
+      <section id="code">
+        <h3>5. Code for checklist items</h3>
+
+        <h4 id="breadcrumbs">Breadcrumbs with Yoast (item 4)</h4>
+        <p>Yoast already includes BreadcrumbList in its structured data on every page, even before breadcrumbs are
+          shown. Do not add our own breadcrumb JSON-LD, or Google sees two. Turn on Advanced › Breadcrumbs, then print
+          the visible breadcrumb with Yoast's function.</p>
+        <figure class="code">
+          <figcaption>functions.php · add</figcaption>
+          <pre class="after"><code>/** Visible breadcrumbs from Yoast SEO (structured data is already in Yoast's schema graph). */
+function rightcore_breadcrumb() {
+    if ( is_front_page() || ! function_exists( 'yoast_breadcrumb' ) ) {
+        return;
+    }
+    yoast_breadcrumb( '&lt;nav class="breadcrumb" aria-label="パンくずリスト"&gt;', '&lt;/nav&gt;' );
+}</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>Page templates (pages/about.php, pages/archive-news.php, pages/single-news.php, Works templates) · below the page header</figcaption>
+          <pre class="after"><code>&lt;?php rightcore_breadcrumb(); ?&gt;</code></pre>
+        </figure>
+        <figure class="code">
+          <figcaption>functions.php · optional: put the 「News一覧」 page in the News detail breadcrumb</figcaption>
+          <pre class="after"><code>/** News detail: トップ › ニュース › post title (Yoast would otherwise use the post type archive). */
+add_filter( 'wpseo_breadcrumb_links', function ( $links ) {
+    if ( is_singular( 'news' ) &amp;&amp; ( $page = rightcore_news_page() ) &amp;&amp; count( $links ) &gt;= 2 ) {
+        array_splice( $links, 1, count( $links ) - 2, array( array( 'id' =&gt; $page-&gt;ID ) ) );
+    }
+    return $links;
+} );</code></pre>
+          <figcaption>Change the separator in Advanced › Breadcrumbs and style <code>.breadcrumb</code> to match the
+            design.</figcaption>
+        </figure>
+
+        <h4 id="fixed-header">Fixed header without layout shift (item 11)</h4>
+        <p>When the header changes from normal to fixed, the content below jumps up by the header's height. Fix the
+          header from the start and reserve its height, or keep a placeholder of the same height.</p>
+        <figure class="code">
+          <figcaption>CSS</figcaption>
+          <pre class="after"><code>:root { --header-h: 80px; }                 /* match the real header height */
+@media (max-width: 767px) { :root { --header-h: 60px; } }
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--header-h);
+  z-index: 100;
+}
+body { padding-top: var(--header-h); }     /* content never jumps */
+[id] { scroll-margin-top: var(--header-h); } /* #section links are not hidden under the header */
+
+/* Shrink or switch to the hamburger after scroll with transform/opacity only,
+   not height or margin, so nothing below moves. */
+.site-header.is-scrolled .site-header__nav { opacity: 0; pointer-events: none; }</code></pre>
+        </figure>
+
+        <h4 id="uploads-htaccess">wp-content/uploads/.htaccess (item 20)</h4>
+        <figure class="code">
+          <figcaption>wp-content/uploads/.htaccess · blocks scripts, keeps images readable</figcaption>
+          <pre class="after"><code># Do not run scripts uploaded to the media folder
+&lt;FilesMatch "\.(php|php\d|phtml|phar|pl|py|cgi|sh)$"&gt;
+  Require all denied
+&lt;/FilesMatch&gt;
+Options -Indexes -ExecCGI
+
+# Long browser cache for media (faster repeat visits)
+&lt;IfModule mod_expires.c&gt;
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png  "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+&lt;/IfModule&gt;</code></pre>
+          <figcaption>On old Apache 2.2 servers use <code>Order allow,deny</code> + <code>Deny from all</code> instead
+            of <code>Require all denied</code>. After uploading, open one image URL to confirm it still loads.</figcaption>
+        </figure>
+
+        <h4 id="recaptcha">Load reCAPTCHA only on the contact pages (item 16)</h4>
+        <p>Optional. Google recommends loading reCAPTCHA v3 on every page for better bot detection, but it is a large
+          script and lowers the mobile speed score of every page. For a small company site, the contact pages are
+          enough.</p>
+        <figure class="code">
+          <figcaption>functions.php · add (find the real handle first, see below)</figcaption>
+          <pre class="after"><code>/** reCAPTCHA only on the contact pages (contact0, contact0-check, contact0-finish). */
+add_action( 'wp_enqueue_scripts', function () {
+    if ( ! is_page( array( 'contact0', 'contact0-check', 'contact0-finish' ) ) ) {
+        wp_dequeue_script( '【recaptcha handle】' );
+        wp_deregister_script( '【recaptcha handle】' );
+    }
+}, 100 );</code></pre>
+          <figcaption>To find the handle: open the homepage source, find the <code>&lt;script&gt;</code> loading
+            <code>google.com/recaptcha</code>; its <code>id</code> is the handle plus <code>-js</code>. If the
+            reCAPTCHA plugin has its own "pages to load on" setting, use that instead.</figcaption>
+        </figure>
+      </section>
+
+      <!-- 6 -->
+      <section id="after-launch">
+        <h3>6. After launch</h3>
+        <div class="table-wrap">
+          <table class="status">
+            <thead><tr><th>When</th><th>Task</th><th>Where</th></tr></thead>
+            <tbody>
+              <tr><td>Launch day</td><td>Submit the sitemap; request indexing for the homepage, About, Works, News</td><td>Search Console</td></tr>
+              <tr><td>Launch day</td><td>Add the website URL to the Google Business Profile; check name, address, phone match</td><td>Business Profile</td></tr>
+              <tr><td>Week 1</td><td>Check the Pages report and the PageSpeed (mobile) score on the live site</td><td>Search Console, PageSpeed Insights</td></tr>
+              <tr><td>Monthly</td><td>Review search queries and top pages; fix 404s from the Redirection log; run a crawler</td><td>Search Console, Redirection</td></tr>
+              <tr><td>Monthly</td><td>Update plugins after a backup; delete unused ones</td><td>WordPress admin</td></tr>
+              <tr><td>Ongoing</td><td>Publish real News and Works with a written title, description and alt text; add photos and posts to the Business Profile</td><td>WordPress, Business Profile</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <nav class="pager" aria-label="Previous and next">
+        <a class="prev" href="05b-code-changes.html"><span class="dir">← Previous</span>5.1 Code changes</a>
+        <a class="next" href="06-questions.html"><span class="dir">Next →</span>6. Questions for media &amp; manager</a>
+      </nav>
+
+      <footer class="doc">Prepared from the rc-renewal theme on October 1, 2026. Updated October 5, 2026 with the site
+        map and page plan and checks of the published test site. This document changes no website files; progress in
+        development is noted where it happened.</footer>
+    </main>
+  </div>
+
+  <script>
+    // Copy buttons on code blocks.
+    document.querySelectorAll('figure.code pre').forEach(function (pre) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-code';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', function () {
+        var text = pre.querySelector('code').textContent;
+        function done(label) {
+          btn.textContent = label;
+          setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+        }
+        try {
+          navigator.clipboard.writeText(text).then(function () { done('Copied'); }, function () { done('Select and copy'); });
+        } catch (e) {
+          done('Select and copy');
+        }
+      });
+      pre.appendChild(btn);
+    });
+
+    // Remember ticks in this browser only.
+    (function () {
+      var wrap = document.querySelector('.checklist');
+      var key = wrap.getAttribute('data-store');
+      var boxes = wrap.querySelectorAll('input[type="checkbox"]');
+      var saved = {};
+      try { saved = JSON.parse(localStorage.getItem(key)) || {}; } catch (e) {}
+      boxes.forEach(function (box) {
+        var id = box.getAttribute('aria-label');
+        box.checked = !!saved[id];
+        box.addEventListener('change', function () {
+          saved[id] = box.checked;
+          try { localStorage.setItem(key, JSON.stringify(saved)); } catch (e) {}
+        });
+      });
+      wrap.querySelector('[data-reset]').addEventListener('click', function () {
+        saved = {};
+        boxes.forEach(function (box) { box.checked = false; });
+        try { localStorage.removeItem(key); } catch (e) {}
+      });
+    })();
+  </script>
+
+</body>
+
+</html>

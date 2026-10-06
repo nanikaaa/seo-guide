@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Simple explanation · RightCore SEO Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="shell">
+    <nav class="toc" aria-label="Contents">
+      <a class="home" href="index.html">RightCore SEO Plan</a>
+      <p>Contents</p>
+      <ol>
+        <li><a href="01-simple-explanation.html" aria-current="page">1. Simple explanation</a></li>
+        <li><a href="02-site-map.html">2. Site map &amp; page plan</a></li>
+        <li><a href="03-website-audit.html">3. Website audit</a></li>
+        <li><a href="04-discussion-guide.html">4. Discussion guide</a></li>
+        <li><a href="05-coder-tasks.html">5. Coder task list</a></li>
+        <li><a href="05b-code-changes.html">5.1 Code changes</a></li>
+        <li><a href="05c-wp-checklist.html">5.2 WP checklist &amp; plugins</a></li>
+        <li><a href="06-questions.html">6. Questions for media &amp; manager</a></li>
+        <li><a href="07-report-template.html">7. Oct 7 report template</a></li>
+        <li><a href="09-sources.html">Sources</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section id="explain">
+        <h2>1. Simple explanation</h2>
+        <p class="small">Each definition links to its source: Google's own documentation where it exists, otherwise
+          WordPress, web.dev, MDN or a Japanese marketing glossary.</p>
+
+        <div class="block">
+          <h3>What SEO means</h3>
+          <p>SEO (search engine optimization) is the work of helping search engines such as Google find our pages,
+            understand what they are about, and show them to people who search for what we offer. It also means making
+            the page useful once someone arrives. SEO cannot guarantee a ranking. Google decides rankings; we can only
+            remove problems and make our pages clear and helpful.</p>
+          <p class="ref"><span>Source:</span> <a
+              href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide">Google: SEO Starter
+              Guide</a> · <a href="https://developers.google.com/search/docs/fundamentals/do-i-need-seo">Google: Do you
+              need an SEO? (no one can guarantee a ranking)</a></p>
+        </div>
+
+        <div class="block">
+          <h3>What MEO means</h3>
+          <p>MEO (map engine optimization) is a term used mainly in Japan. It means improving how a business appears in
+            Google Maps and in the map results of Google Search. Most of this work happens in the Google Business
+            Profile (the company's listing on Google Maps), not on the website. Google says local results depend mainly
+            on relevance, distance and prominence, and that a complete, accurate profile helps. The website supports MEO
+            by showing the same company name, address and phone number as the profile.</p>
+          <p class="ref"><span>Source:</span> <a href="https://www.synergy-marketing.co.jp/glossary/meo/">シナジーマーケティング
+              用語集「MEO」</a> · <a href="https://www.makeshop.jp/main/knowhow/term/meo.html">makeshop 用語集「MEO」</a> · <a
+              href="https://support.google.com/business/answer/7091">Google Business Profile: Tips to improve your local
+              ranking (relevance, distance, prominence)</a> · <a
+              href="https://support.google.com/business/answer/3038177">Google Business Profile: Guidelines for
+              representing your business</a></p>
+        </div>
+
+        <div class="block">
+          <h3>How each area contributes</h3>
+          <ul>
+            <li><strong>Design:</strong> a clear layout, readable text on phones, and obvious buttons help visitors stay
+              and contact us. Design also decides where important text appears (as real text, not inside images).</li>
+            <li><strong>Coding:</strong> correct HTML (one main heading, real links, alt text on images), fast loading,
+              pages that work on phones, and templates that actually display each page's content.</li>
+            <li><strong>Content:</strong> what we say about our services, our works, our news and our company. Google
+              rewards content written for people, from real experience. Coders write the SEO text (titles, descriptions, alt
+              text); the real facts about the company come from management.
+            </li>
+            <li><strong>Website settings:</strong> site title, language, which pages may appear in Google (indexing),
+              the sitemap, redirects, and HTTPS. We have the project's WordPress admin accounts on the development and
+              production servers, and Yoast SEO is installed, so we set these in WordPress admin.</li>
+          </ul>
+          <p class="ref"><span>Source:</span> <a
+              href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content">Google: Creating
+              helpful, reliable, people-first content</a> · <a
+              href="https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing">Google:
+              Mobile-first indexing</a> · <a
+              href="https://developers.google.com/search/docs/appearance/core-web-vitals">Google: Core Web Vitals</a>
+          </p>
+        </div>
+
+        <div class="note key">
+          <h4>Who handles what</h4>
+          <ul>
+            <li><strong>Coders handle:</strong> HTML structure, templates, links, image sizing and compression, page
+              titles, meta descriptions, alt text, keyword and topic choices for each page, Yoast SEO settings in
+              WordPress admin (indexing, sitemap, Open Graph, structured data) on development and production, the 404
+              page, and technical checks with evidence.</li>
+            <li><strong>We ask management or the media team only for real information:</strong> company name,
+              address, phone, email and hours, the official Instagram account, real photos and works, permission to
+              show testimonials, the privacy policy text, and the Google Business Profile.</li>
+            <li><strong>Real information already in the design:</strong> where the approved design already shows real
+              text or details (for example text inside an image), we use it as it is, including for alt text, and do
+              not ask again.</li>
+            <li><strong>Management decides:</strong> target audience and services, the official company details, who
+              owns the Google Business Profile, and access to Search Console and analytics.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>Technical terms used in this plan</h3>
+          <dl class="terms">
+            <div>
+              <dt>Index / indexing</dt>
+              <dd>Google's database of pages. A page must be indexed before it can appear in search results. <span
+                  class="ref-inline">Source: <a
+                    href="https://developers.google.com/search/docs/fundamentals/how-search-works">Google: How Search
+                    works</a></span></dd>
+            </div>
+            <div>
+              <dt>Crawl</dt>
+              <dd>When Google's program (Googlebot) visits and reads a page by following links. <span
+                  class="ref-inline">Source: <a
+                    href="https://developers.google.com/search/docs/fundamentals/how-search-works">Google: How Search
+                    works</a></span></dd>
+            </div>
+            <div>
+              <dt>noindex</dt>
+              <dd>An instruction in a page that tells Google not to show that page in search results. <span
+                  class="ref-inline">Source: <a
+                    href="https://developers.google.com/search/docs/crawling-indexing/block-indexing">Google: Block
+                    indexing with noindex</a></span></dd>
+            </div>
+            <div>
+              <dt>robots.txt</dt>
+              <dd>A small file at the site root that tells crawlers which paths they may visit. It does not reliably
+                keep a page out of Google; noindex or a password does that. <span class="ref-inline">Source: <a
+                    href="https://developers.google.com/search/docs/crawling-indexing/robots/intro">Google: Introduction
+                    to robots.txt</a></span></dd>
+            </div>
+            <div>
+              <dt>Sitemap</dt>
+              <dd>A list of the site's page URLs that helps Google find them. WordPress creates one at
+                <code>/wp-sitemap.xml</code>. <span class="ref-inline">Source: <a
+                    href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview">Google:
+                    Sitemaps overview</a> · <a
+                    href="https://make.wordpress.org/core/2020/07/22/new-xml-sitemaps-functionality-in-wordpress-5-5/">WordPress:
+                    XML sitemaps in WordPress 5.5</a></span></dd>
+            </div>
+            <div>
+              <dt>Canonical URL</dt>
+              <dd>The one preferred address for a page when the same content can be reached at several addresses. <span
+                  class="ref-inline">Source: <a
+                    href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls">Google:
+                    Consolidating duplicate URLs</a></span></dd>
+            </div>
+            <div>
+              <dt>Title and meta description</dt>
+              <dd>The title is the page name shown in the browser tab and often as the blue link in Google. The meta
+                description is a short summary Google may show under it. <span class="ref-inline">Source: <a
+                    href="https://developers.google.com/search/docs/appearance/title-link">Google: Title links</a> · <a
+                    href="https://developers.google.com/search/docs/appearance/snippet">Google: Snippets and meta
+                    descriptions</a></span></dd>
+            </div>
+            <div>
+              <dt>Alt text</dt>
+              <dd>A text description of an image, used by screen readers and by Google to understand the image. <span
+                  class="ref-inline">Source: <a
+                    href="https://developers.google.com/search/docs/appearance/google-images">Google: Image SEO best
+                    practices</a> · <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#alt">MDN: img
+                    alt attribute</a></span></dd>
+            </div>
+            <div>
+              <dt>Structured data</dt>
+              <dd>Extra code (usually JSON-LD) that describes facts such as company name, logo and address in a format
+                Google can read. <span class="ref-inline">Source: <a
+                    href="https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data">Google:
+                    Introduction to structured data</a></span></dd>
+            </div>
+            <div>
+              <dt>Core Web Vitals / LCP / CLS</dt>
+              <dd>Google's loading and stability measurements. LCP is how long the largest visible item takes to appear;
+                CLS is how much the layout jumps while loading. <span class="ref-inline">Source: <a
+                    href="https://developers.google.com/search/docs/appearance/core-web-vitals">Google: Core Web
+                    Vitals</a> · <a href="https://web.dev/articles/lcp">web.dev: LCP</a> · <a
+                    href="https://web.dev/articles/cls">web.dev: CLS</a></span></dd>
+            </div>
+            <div>
+              <dt>Staging</dt>
+              <dd>A test copy of the website. It must never appear in Google. <span class="ref-inline">Source: <a
+                    href="https://developers.google.com/search/docs/crawling-indexing/control-what-you-share">Google:
+                    Control what you share (password protection, noindex)</a></span></dd>
+            </div>
+            <div>
+              <dt>NAP</dt>
+              <dd>Name, Address, Phone. These must match exactly between the website and the Google Business Profile.
+                <span class="ref-inline">Source: <a href="https://support.google.com/business/answer/3038177">Google
+                    Business Profile: Guidelines for representing your business</a></span></dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <nav class="pager" aria-label="Previous and next">
+        <a class="prev" href="index.html"><span class="dir">← Previous</span>Overview</a>
+        <a class="next" href="02-site-map.html"><span class="dir">Next →</span>2. Site map &amp; page plan</a>
+      </nav>
+
+      <footer class="doc">Prepared from the rc-renewal theme on October 1, 2026. Updated October 5, 2026 with the site
+        map and page plan and checks of the published test site. This document changes no website files; progress in
+        development is noted where it happened.</footer>
+    </main>
+  </div>
+
+</body>
+
+</html>

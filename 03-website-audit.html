@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Website audit · RightCore SEO Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="shell">
+    <nav class="toc" aria-label="Contents">
+      <a class="home" href="index.html">RightCore SEO Plan</a>
+      <p>Contents</p>
+      <ol>
+        <li><a href="01-simple-explanation.html">1. Simple explanation</a></li>
+        <li><a href="02-site-map.html">2. Site map &amp; page plan</a></li>
+        <li><a href="03-website-audit.html" aria-current="page">3. Website audit</a></li>
+        <li><a href="04-discussion-guide.html">4. Discussion guide</a></li>
+        <li><a href="05-coder-tasks.html">5. Coder task list</a></li>
+        <li><a href="05b-code-changes.html">5.1 Code changes</a></li>
+        <li><a href="05c-wp-checklist.html">5.2 WP checklist &amp; plugins</a></li>
+        <li><a href="06-questions.html">6. Questions for media &amp; manager</a></li>
+        <li><a href="07-report-template.html">7. Oct 7 report template</a></li>
+        <li><a href="09-sources.html">Sources</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section id="audit">
+        <h2>3. Website audit</h2>
+
+        <div class="note">
+          <h4>Scope and limits</h4>
+          <ul>
+            <li><strong>Checked:</strong> the rc-renewal theme files and the HTML the development build produces for
+              <code>/</code>, <code>/about/</code>, <code>/news/</code>, <code>/works/</code>, <code>/instagram/</code>,
+              single posts, the search page, <code>/robots.txt</code>, <code>/wp-sitemap.xml</code> and a missing URL.
+              The mobile layout was checked at 390px width with an empty cache.</li>
+            <li><strong>Plugins:</strong> when this audit was made, no SEO plugin was installed in the development build.
+              <strong>Update Oct 5:</strong> we now have the project's WordPress admin accounts on development and
+              production, and Yoast SEO is installed on both. Titles, descriptions, indexing, the sitemap, Open
+              Graph and structured data will be set in Yoast SEO; the theme must not output a second copy.</li>
+            <li><strong>Published test site (added October 5):</strong> the HTML of
+              <code>https://offshore-tng02.sakura.ne.jp/right-core/</code>, the status of every planned page address,
+              <code>/robots.txt</code>, the sitemap and the http to https redirect. Results are added to A1–A4, A9, A10,
+              A18, A20 and the new A22.</li>
+            <li><strong>Not checked (no access or not supplied):</strong> the final production domain and its settings,
+              hosting settings of the test site, Google Search Console, analytics, Google Business
+              Profile, real-user speed data, other websites linking to us, and keyword demand.</li>
+            <li><strong>Speed numbers:</strong> file sizes are real. For load times, use PageSpeed Insights on the live
+              or staging URL for real numbers.</li>
+          </ul>
+        </div>
+
+        <div class="legend" aria-label="Legend">
+          <span class="chip s-confirmed">Confirmed issue</span>
+          <span class="chip s-ok">Verified correct</span>
+          <span class="chip s-check">Needs verification</span>
+          <span class="chip p-high">High</span>
+          <span class="chip p-med">Medium</span>
+          <span class="chip p-low">Low</span>
+        </div>
+
+        <div class="findings">
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A22</span>
+              <h3>Published test site: every page except the homepage returns 404</h3>
+              <div class="chips"><span class="chip p-high">High</span><span class="chip s-confirmed">Confirmed
+                  issue</span><span class="chip s-check">New Oct 5</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>All subpages and posts on the published test site</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>https://offshore-tng02.sakura.ne.jp/right-core/</code>; <code>.htaccess</code> in the
+                  <code>right-core</code> folder; Settings › Permalinks</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>The homepage works, but <code>/news/</code>, <code>/works/</code>, <code>/works/onekamakura/</code>,
+                  every other post, and all planned page addresses return the server's own "Not Found" page. WordPress
+                  never runs for these addresses. The same content loads through WordPress with the plain form
+                  <code>?post_type=news</code>, so the content exists; only the pretty addresses fail.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>HTTP 404 with the server's plain error page (not the theme) for every pretty address; HTTP 200 for
+                  <code>/right-core/?post_type=news</code> and <code>?post_type=works</code>. The homepage links to 14
+                  of these addresses. The sitemap address also returns 404 there (expected while search engines are
+                  discouraged).</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Every News, Works and Instagram link on the test site is broken, so nothing beyond the homepage can
+                  be reviewed there. If the same server setup is used for launch, the live site would have the same
+                  problem.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>
+                  <ul>
+                    <li>In the test site's WordPress admin, open Settings › Permalinks and click Save. This rewrites
+                      <code>.htaccess</code> if WordPress can write to it.</li>
+                    <li>If it cannot, upload the standard WordPress <code>.htaccess</code> to the
+                      <code>right-core</code> folder with <code>RewriteBase /right-core/</code> and
+                      <code>RewriteRule . /right-core/index.php [L]</code>.</li>
+                    <li>Check that the FTP upload did not skip hidden files such as <code>.htaccess</code>.</li>
+                  </ul>
+                </dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Open <code>/right-core/news/</code> and one works post on the test site: the theme loads (not the
+                  plain server page) and the status is 200.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A1</span>
+              <h3>News, Works and Instagram pages show only a placeholder</h3>
+              <div class="chips"><span class="chip p-high">High</span><span class="chip s-confirmed">Confirmed
+                  issue</span><span class="chip s-ok">News built</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>News list and posts, Works list and posts, Instagram list and posts, default post and page</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>/news/</code>, <code>/works/</code>, <code>/instagram/</code>,
+                  <code>/works/sushi-okazaki/</code> and every other single post, <code>/hello-world/</code>,
+                  <code>/sample-page/</code>. Theme has only <code>index.php</code> as fallback (no
+                  <code>archive-*.php</code> or <code>single-*.php</code>).</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>These URLs return HTTP 200 but show only an H1 「RIGHTCORE」 and the text 「トップページをご覧ください」. The real
+                  post content is never displayed.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Page source of <code>/works/sushi-okazaki/</code>: title 「Sushi Okazaki – rc_renewal_project」, H1
+                  「RIGHTCORE」. The homepage links to these pages from Works cards, News items, Instagram cards and the
+                  「すべて見る」 buttons, and all of them are listed in <code>/wp-sitemap.xml</code>.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Google finds many near-empty pages with the same text, which it can treat as low-value or as "soft
+                  404" pages. Visitors who click a work or news item see nothing useful. This is the most important
+                  problem found.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>
+                  <ul>
+                    <li>News: build <code>archive-news.php</code> and <code>single-news.php</code>.</li>
+                    <li>Works: build <code>archive-works.php</code> and <code>single-works.php</code>.</li>
+                    <li>Instagram: an Instagram feed plugin will replace the temporary post type soon (see <a href="02-site-map.html#sns">SNS in the site map</a>). Until
+                      then, keep its pages out of the sitemap and search; do not build templates for it.</li>
+                  </ul>
+                </dd>
+              </div>
+              <div>
+                <dt>Progress (Oct 5)</dt>
+                <dd>News list and detail templates are built in development (see <a href="02-site-map.html#news">News in the site map</a>); not yet uploaded. Works and Instagram
+                  are still open. On the test site, <code>?post_type=news</code> and
+                  <code>?post_type=works</code> still show the placeholder.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Open each list and single URL: the H1 is the real post or list title, the content appears, and the
+                  page title is unique. Search the page source for 「トップページをご覧ください」; it should not appear on any of these
+                  pages.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A2</span>
+              <h3>Site name is a placeholder in every page title</h3>
+              <div class="chips"><span class="chip p-high">High</span><span class="chip s-confirmed">Confirmed in
+                  development</span><span class="chip s-ok">Fixed on test site</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>All pages</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd>WordPress Settings › General › Site Title. Titles are printed by <code>wp_head()</code> through
+                  <code>add_theme_support('title-tag')</code> in <code>functions.php</code>.</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>The homepage title is only 「rc_renewal_project」, and other pages end with 「– rc_renewal_project」.
+                </dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd><code>&lt;title&gt;rc_renewal_project&lt;/title&gt;</code> on <code>/</code>; 「私たちについて –
+                  rc_renewal_project」 on <code>/about/</code>; 「Search Results for “Web” – rc_renewal_project」 on the
+                  search page (English text on a Japanese site). Published test site: the homepage title is 「株式会社ライトコア」
+                  and post types end with 「– 株式会社ライトコア」, so the setting is already done there. The development build
+                  still shows the placeholder.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>The title is the main source for the blue link Google shows. A project code name tells nobody what
+                  the company does.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Set the approved company name as Site Title. Give the homepage its own title that names the company
+                  and main service (written by coders in Yoast SEO). Set the WordPress language to Japanese (see A4) so
+                  built-in titles such as the search page are Japanese.</dd>
+              </div>
+              <div>
+                <dt>Progress (Oct 5)</dt>
+                <dd>In development, the theme no longer types the company name by hand: the MV heading, logo
+                  <code>alt</code>, footer map card and three other places now show the Site Title
+                  (<a href="05b-code-changes.html#site-name">C14</a>). Changing Settings › General › Site Title now
+                  updates the page title and the name on the page together. The development build still has the
+                  placeholder Site Title, so it shows 「rc_renewal_project」 in those places until the setting is
+                  changed.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Page source of <code>/</code>, <code>/about/</code>, a news post and a works post shows the
+                  approved, unique titles.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A3</span>
+              <h3>Broken links and placeholder links</h3>
+              <div class="chips"><span class="chip p-high">High</span><span class="chip s-confirmed">Confirmed
+                  issue</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Header, About, Services, Recruit, FAQ, Footer</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>header.php</code>, <code>footer.php</code>, <code>template-parts/sec-about.php</code>,
+                  <code>sec-service.php</code>, <code>sec-recruit.php</code>, <code>sec-faq.php</code></dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>
+                  <ul>
+                    <li><code>/faq/</code> returns 404 (FAQ button, <code>sec-faq.php</code> line 75).</li>
+                    <li><code>/privacy-policy/</code> returns 404 (footer, <code>footer.php</code> line 139).</li>
+                    <li><code>#company</code> has no matching section on any page (<code>header.php</code> line 270,
+                      <code>footer.php</code> line 132).</li>
+                    <li><code>#services</code> does not exist; the section id is <code>service</code>
+                      (<code>footer.php</code> line 131).</li>
+                    <li>On <code>/about/</code>, menu links such as <code>#works</code> and <code>#faq</code> point to
+                      sections that only exist on the homepage.</li>
+                    <li>14 links on the homepage use <code>href="#"</code>: もっと見る buttons in About
+                      (<code>sec-about.php</code> 58), Services (<code>sec-service.php</code> 22, 175) and Recruit
+                      (<code>sec-recruit.php</code> 28); service card links (<code>sec-service.php</code> 56, 92, 128,
+                      164, and an empty <code>href=""</code> at line 44); Facebook and X icons (<code>footer.php</code>
+                      106, 115).</li>
+                  </ul>
+                </dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>HTTP status checks, and a scan of every <code>&lt;a&gt;</code> in the homepage and
+                  <code>/about/</code> HTML.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Google discovers pages by following real links with an <code>href</code> address. Dead links also
+                  waste visitors' clicks and look unfinished.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Point every link to its page address, even before the page is built: menu items, contact buttons,
+                  もっと見る buttons and service cards. They return 404 only until each page in the page plan is
+                  published. Use dummy addresses for Facebook and X until the official accounts are confirmed. Never
+                  leave <code>#</code> or an empty <code>href</code>.</dd>
+              </div>
+              <div>
+                <dt>Progress (Oct 5)</dt>
+                <dd>Done in development (<a href="05b-code-changes.html#nav-links">C2</a>,
+                  <a href="05b-code-changes.html#buttons">C3</a>):
+                  <ul>
+                    <li>Header, mobile menu and footer site map link to <code>/about/</code>, <code>/service/</code>,
+                      <code>/company/</code>, <code>/works/</code>, <code>/recruit/</code>, <code>/faq/</code> and the
+                      News list. Contact buttons link to <code>/contact/</code>.</li>
+                    <li>もっと見る buttons link to <code>/about/</code>, <code>/service/</code> and
+                      <code>/recruit/</code>. Service cards link to <code>/service/#creative</code>, <code>#design</code>,
+                      <code>#media</code> and <code>#global</code>.</li>
+                    <li>Facebook and X use dummy addresses (<code>https://www.facebook.com/</code>,
+                      <code>https://x.com/</code>) until the accounts are confirmed.</li>
+                    <li>The homepage has no <code>href="#"</code> or empty links left.</li>
+                  </ul>
+                  Expected for now: About, News and Works open; the other addresses are 404 until their pages are built
+                  (<a href="02-site-map.html">section 2</a>). The test site still has the old links until the theme is
+                  uploaded.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Run a link checker (for example a site crawler) on staging: no 404s and no <code>#</code> links.
+                  Click every menu item from both <code>/</code> and <code>/about/</code>.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A4</span>
+              <h3>Page language is set to English</h3>
+              <div class="chips"><span class="chip p-med">Medium</span><span class="chip s-confirmed">Confirmed in
+                  development</span><span class="chip s-ok">Fixed on test site</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>All pages</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd>WordPress Settings › General › Site Language; <code>language_attributes()</code> in
+                  <code>header.php</code> line 2</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>The page says it is English while the content is Japanese.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd><code>&lt;html lang="en-US"&gt;</code> in the development homepage source. The published test site
+                  already shows <code>&lt;html lang="ja"&gt;</code>.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Browsers, screen readers and translation tools use this value. A wrong language causes wrong
+                  pronunciation and translation prompts.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Set Site Language to 日本語 so WordPress prints <code>lang="ja"</code>. <code>lang.js</code> already
+                  switches it when a visitor changes language.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Page source shows <code>&lt;html lang="ja"&gt;</code>.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A5</span>
+              <h3>No meta descriptions</h3>
+              <div class="chips"><span class="chip p-med">Medium</span><span class="chip s-confirmed">Confirmed
+                  issue</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>All pages</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>header.php</code> (<code>wp_head()</code>); Yoast SEO now installed</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>No page has a <code>&lt;meta name="description"&gt;</code>.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Checked <code>/</code>, <code>/about/</code>, <code>/news/</code>, <code>/works/</code> and the
+                  search page: 0 description tags.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Google may use the description as the text under the link. Without one, Google picks text from the
+                  page itself. It does not change rankings, but a good summary can help people choose our result.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Set all metadata in Yoast SEO, in WordPress admin. Do not also add it in the theme, or pages
+                  will show two descriptions. Coders write a unique description for each page, starting with the
+                  homepage, About, News list and Works list.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Page source shows exactly one description per page, with the approved text.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A6</span>
+              <h3>Homepage is very heavy on phones</h3>
+              <div class="chips"><span class="chip p-high">High</span><span class="chip s-confirmed">Confirmed
+                  issue</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Homepage, mainly MV, Recruit, Works, Footer/Contact, and site-wide fonts</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>assets/css/fonts/NotoSans.ttf</code>, <code>assets/img/top/mv01–04.jpg</code>,
+                  <code>footer/cta-bg.jpg</code>, <code>top/header_mv.jpg</code>, <code>top/sec04-bg.png</code>,
+                  uploaded Works images</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>One homepage visit downloads about 27.4 MB in 66 requests.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>
+                  <ul>
+                    <li>NotoSans.ttf font: 8.9 MB</li>
+                    <li>MV photos mv01–mv04.jpg: 1.4–2.4 MB each</li>
+                    <li>cta-bg.jpg 1.6 MB, header_mv.jpg 1.4 MB, sec04-bg.png 1.2 MB</li>
+                    <li>Four uploaded Works images named <code>ChatGPT-Image-…-1024x889.png</code>: 0.95–1.3 MB each
+                    </li>
+                    <li>Only 19 of 42 images have <code>width</code> and <code>height</code> attributes</li>
+                    <li>The largest item on screen (LCP) is <code>mv02.jpg</code>; layout shift (CLS) measured 0.000
+                    </li>
+                  </ul>
+                </dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Phones on mobile data load this slowly. Google includes loading experience (Core Web Vitals) in page
+                  experience, and slow pages lose visitors before they contact us.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>
+                  <ul>
+                    <li>Replace the 8.9 MB TTF with a subset WOFF2 file or Google Fonts' Noto Sans JP with
+                      <code>display=swap</code>.</li>
+                    <li>Resize photos to about twice their largest displayed size and export as WebP or compressed JPEG.
+                      Aim for under about 300 KB each (see <a href="02-site-map.html">Suggested image sizes</a>).</li>
+                    <li>Keep the first MV image loading immediately and add <code>fetchpriority="high"</code>; keep
+                      <code>loading="lazy"</code> on images further down.</li>
+                    <li>Add <code>width</code> and <code>height</code> to every <code>&lt;img&gt;</code>.</li>
+                    <li>Resize the Works images ourselves and output them with WordPress image sizes (<code>srcset</code>).</li>
+                  </ul>
+                </dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>DevTools › Network with cache disabled: record total transferred size before and after. PageSpeed
+                  Insights (mobile) on the staging or live URL: save the report before and after.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A7</span>
+              <h3>Important images have no alt text</h3>
+              <div class="chips"><span class="chip p-med">Medium</span><span class="chip s-confirmed">Confirmed
+                  issue</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>MV, About, Recruit</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>sec-mv.php</code> (mv01–04.jpg), <code>sec-about.php</code> (img01.png),
+                  <code>sec-recruit.php</code> (img02.png)</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>28 of 42 homepage images have <code>alt=""</code>. Most are correctly empty because they are
+                  decorative (bullets, icons next to text, testimonial avatars next to names). The MV photos and the
+                  About and Recruit photos carry meaning but also have empty alt.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Homepage HTML scan: 0 images missing the alt attribute; 28 with empty alt; list above.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Google uses alt text to understand images, and screen reader users hear it instead of the image.
+                </dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Coders write short, factual Japanese alt text for meaningful photos. Where the image shows text, the
+                  alt repeats that text. Keep <code>alt=""</code> for decorative images (see
+                  <a href="02-site-map.html">Alt text rules</a>).</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>List of each changed image with its new alt, checked in page source.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A8</span>
+              <h3>Test content is published and listed in the sitemap</h3>
+              <div class="chips"><span class="chip p-high">High</span><span class="chip s-confirmed">Confirmed in
+                  development</span><span class="chip s-check">Production needs verification</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Site-wide</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>/hello-world/</code>, <code>/sample-page/</code>, <code>/author/rc_renewal_project/</code>,
+                  Uncategorized category; <code>/wp-sitemap.xml</code></dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>WordPress's default post and page are published, and the sitemap lists them together with an author
+                  page and the category list.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd><code>wp-sitemap-posts-post-1.xml</code> lists <code>/hello-world/</code>;
+                  <code>wp-sitemap-posts-page-1.xml</code> lists <code>/sample-page/</code>;
+                  <code>wp-sitemap-users-1.xml</code> lists the author page, which also shows the admin username.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Test pages can appear in Google and look unprofessional.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Delete the sample post and page on production after confirming, and decide whether author and
+                  category sitemaps are needed (turn them off in Yoast SEO). Also check for
+                  duplicate posts: Instagram has two posts named 「新しいコーポレートサイトが公開されました」 (one with slug ending
+                  <code>-2</code>).</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>The URLs return 404 and no longer appear in <code>/wp-sitemap.xml</code>.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A9</span>
+              <h3>Indexing settings: staging must stay hidden, production must stay open</h3>
+              <div class="chips"><span class="chip p-high">High</span><span class="chip s-ok">Development
+                  verified</span><span class="chip s-ok">Test site hidden</span><span class="chip s-check">Production
+                  needs verification</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Site-wide</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd>Settings › Reading › Search engine visibility; <code>/robots.txt</code></dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>In the development build, pages have no noindex, robots.txt allows crawling and lists the sitemap,
+                  and the search results page correctly has <code>noindex, follow</code>. The published test site
+                  (<code>offshore-tng02.sakura.ne.jp/right-core</code>) has <code>noindex, nofollow</code> on its
+                  homepage, so it is hidden from Google as it should be. Its domain <code>/robots.txt</code> allows
+                  everything, which is fine because noindex is what hides the pages. Production could not be checked.
+                </dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Homepage: <code>&lt;meta name='robots' content='max-image-preview:large'&gt;</code>. Search page:
+                  <code>noindex, follow</code>. robots.txt: <code>Disallow: /wp-admin/</code> and the sitemap line.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>If staging is indexed, Google may show the test copy instead of the real site. If production
+                  accidentally has noindex, the real site disappears from Google.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Staging: turn on "Discourage search engines" and, ideally, protect it with a password. Production:
+                  confirm it is not discouraged. Remember that robots.txt alone does not keep a page out of Google.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Screenshots of the Reading setting on each server, page source of each homepage, and each
+                  <code>/robots.txt</code>. After launch: Search Console › Pages report.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A10</span>
+              <h3>Canonical URLs and redirects</h3>
+              <div class="chips"><span class="chip p-med">Medium</span><span class="chip s-confirmed">Homepage
+                  missing</span><span class="chip s-check">Production needs verification</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Homepage; site-wide</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>/</code>; server and hosting settings</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd><code>/about/</code> and single posts output a canonical tag; the homepage does not. On the
+                  published test site, <code>http://</code> loads the page directly (status 200) instead of redirecting
+                  to <code>https://</code>. That is acceptable for a hidden test copy, but production must redirect.
+                  Production redirects could not be checked.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd><code>rel="canonical"</code> present on <code>/about/</code> and <code>/works/sushi-okazaki/</code>,
+                  absent on <code>/</code>.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>If the same page is reachable at several addresses, a canonical tag and redirects tell Google which
+                  one to show.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Add the homepage canonical through the chosen metadata method (A5). On production, confirm that
+                  <code>http://</code> and the non-preferred www version redirect to one HTTPS address.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Page source shows one canonical on every page. Each address variant redirects with a 301 to the
+                  preferred one.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A11</span>
+              <h3>Heading structure</h3>
+              <div class="chips"><span class="chip p-low">Low</span><span class="chip s-ok">Outline verified
+                  correct</span><span class="chip s-confirmed">Minor duplicates</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Homepage (all sections), About page</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>sec-mv.php</code> line 19 (H1), <code>sec-service.php</code>, <code>sec-about.php</code>,
+                  <code>sec-recruit.php</code></dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>The homepage has one H1 (「株式会社ライトコア」), H2 for each section and H3 for items. The About page has one
+                  H1. Two small problems: each service name is an H2 twice (card and hover overlay), and
+                  <code>id="about-title"</code> is used three times (About, Services, Recruit).</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Heading outline extracted from the homepage HTML; <code>sec-service.php</code> lines 32/50, 68/86,
+                  104/122, 140/158.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Clean headings help Google and screen readers understand the page. Duplicate ids break the link
+                  between a section and its heading.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Keep one heading per service (change the overlay copy to a <code>&lt;p&gt;</code> or hide it from
+                  screen readers). Give each section heading a unique id. Coders decide whether the H1 should also mention the
+                  main service.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Heading outline (browser extension or DevTools) shows each heading once; no duplicate ids in the
+                  page.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A12</span>
+              <h3>Content is readable without JavaScript</h3>
+              <div class="chips"><span class="chip p-low">Low</span><span class="chip s-ok">Verified correct</span><span
+                  class="chip s-check">Rendered view needs verification</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>MV, About, Works, Instagram, Testimonials, FAQ, Access</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd>Homepage HTML; <code>assets/js/about.js</code></dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>All important text is in the HTML before JavaScript runs, including slider content: company name,
+                  services, FAQ questions, address, phone and the About numbers. The About cards start invisible and
+                  their numbers are reset to 0, then animate when the section scrolls into view.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Text search of the raw HTML (scripts removed) found 株式会社ライトコア, サービス紹介, 顧客満足度, FAQ questions,
+                  大阪府大阪市北区梅田 and 06-4256-3641.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Google renders JavaScript, but content in plain HTML is the safest.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>No change needed now. After launch, use Search Console URL Inspection › View crawled page to confirm
+                  the rendered HTML shows the final numbers.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Screenshot of URL Inspection's rendered HTML.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A13</span>
+              <h3>Mobile layout</h3>
+              <div class="chips"><span class="chip p-med">Medium</span><span class="chip s-ok">Verified in
+                  development</span><span class="chip s-check">Lighthouse check needed</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>All sections</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>header.php</code> viewport tag; section CSS</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>The viewport tag is present, there is no sideways scrolling at 390px, and layout shift was 0.000.
+                </dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Headless Chrome at 390×844, empty cache.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Google indexes the mobile version of pages first.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Each coder checks their section at 375px, 390px and 768px for text size, tap target size and
+                  overflow.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Phone-width screenshots per section and a Lighthouse mobile report.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A14</span>
+              <h3>Company details must match Google Business Profile (MEO)</h3>
+              <div class="chips"><span class="chip p-high">High</span><span class="chip s-check">Needs
+                  verification</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Access, Footer</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>footer.php</code> (Access card and contact list)</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>The site shows 〒530-0001 大阪府大阪市北区梅田1丁目1-3 大阪駅前第3ビル 27階, 06-4256-3641 and info@rightcore.jp. The
+                  Instagram link goes to the account 「rightcore_manila」. We could not compare these with the Google
+                  Business Profile.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Homepage HTML.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>For map results, the name, address and phone should be the same everywhere. A different spelling or
+                  an old number weakens trust.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Management or the media team confirms the official details and the correct Instagram account. Coders
+                  copy them exactly into Access and Footer.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Side-by-side screenshot of the profile and the website.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A15</span>
+              <h3>Trust of placeholder content</h3>
+              <div class="chips"><span class="chip p-high">High</span><span class="chip s-check">Needs
+                  verification</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Testimonials, MV, Works</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>sec-testimonials.php</code>, <code>sec-mv.php</code>, Works uploads</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>Testimonials show 12 customers (佐藤 様 to 松本 様) with star ratings. The MV photos are watermarked PIXTA
+                  preview images (known from earlier work). The Works images are AI-generated files.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Homepage HTML and file names.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Google's guidance favors trustworthy, people-first content. Testimonials that are not real, or
+                  unlicensed photos, can damage trust and create legal risk.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Management confirms that testimonials are real and approved, buys licensed MV photos, and supplies
+                  real Works images. Coders replace them when supplied.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Written approval from the manager, and the replaced files on staging.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A16</span>
+              <h3>English language switch</h3>
+              <div class="chips"><span class="chip p-med">Medium</span><span class="chip s-check">Needs
+                  verification</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Header</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>assets/js/lang.js</code>, <code>header.php</code> (language menu)</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>The JP/EN switch calls GTranslate's <code>doGTranslate()</code>, but the GTranslate plugin is not
+                  installed in the development build, so it could not be tested.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd><code>lang.js</code> lines 12–25; plugin folder contains only Classic Editor.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Translation done in the browser does not create separate English pages, so English versions will not
+                  appear in Google. Our customers are Japanese companies in Japan, so separate English pages (for example
+                  <code>/en/</code>) are not needed for now.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Check the switch on production.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Screen recording of the switch on production.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A17</span>
+              <h3>Sitemap</h3>
+              <div class="chips"><span class="chip p-med">Medium</span><span class="chip s-ok">Works in
+                  development</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Site-wide</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>/wp-sitemap.xml</code></dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>WordPress's built-in sitemap works and lists posts, pages, news, works, instagram, categories and
+                  users.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Sitemap index of the development build.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>It helps Google find new news and works posts quickly.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>After A1 and A8, keep only useful types. Submit the production sitemap in Search Console. If an SEO
+                  plugin is added, it replaces the built-in sitemap; submit only one.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Search Console › Sitemaps shows "Success".</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A18</span>
+              <h3>Site icon and social sharing preview</h3>
+              <div class="chips"><span class="chip p-med">Medium</span><span class="chip s-confirmed">Confirmed
+                  missing</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Site-wide</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd>Appearance › Customize › Site Identity; <code>wp_head()</code></dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>No favicon (<code>rel="icon"</code>) and no Open Graph tags.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Homepage head: 0 icon links, 0 <code>og:</code> tags. Update Oct 5: the published test site now has
+                  site icon links; Open Graph tags are still missing there.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Google shows the site icon next to our result. Open Graph controls the preview when the site is
+                  shared on LINE, Facebook or X (it does not affect ranking).</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Set a square Site Icon from the logo. Set Open Graph tags in Yoast SEO, as in A5, with a
+                  1200 × 630px share image made from the design.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Icon visible in the browser tab; a share preview test shows the right title and image.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A19</span>
+              <h3>Structured data</h3>
+              <div class="chips"><span class="chip p-low">Low</span><span class="chip s-confirmed">Not present</span>
+              </div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Homepage</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd>Yoast SEO (schema graph)</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>No JSON-LD structured data on the homepage.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>0 <code>application/ld+json</code> scripts.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Organization data helps Google understand our name, logo and official profiles.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>
+                  <ul>
+                    <li>After company details are approved, add Organization data (name, URL, logo, Instagram) to the
+                      homepage.</li>
+                    <li>Add LocalBusiness only if the Osaka office receives customers and the details match the Business
+                      Profile.</li>
+                    <li>Do not mark up our own testimonials as reviews: Google does not show review stars for a
+                      business's reviews about itself.</li>
+                    <li>Skip FAQ markup: since 2023 Google shows FAQ rich results only for well-known government and
+                      health websites.</li>
+                    <li>Check what Yoast already outputs first so nothing is duplicated.</li>
+                  </ul>
+                </dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Rich Results Test and Schema Markup Validator show no errors.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A20</span>
+              <h3>404 error page</h3>
+              <div class="chips"><span class="chip p-low">Low</span><span class="chip s-ok">Status code
+                  correct</span><span class="chip s-confirmed">Page content missing</span></div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Error page</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd>No <code>404.php</code>; <code>/this-page-does-not-exist/</code></dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>Missing pages correctly return HTTP 404, but show the same placeholder as A1.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Status 404 with H1 「RIGHTCORE」 in the development build. On the published test site, missing
+                  addresses show the server&#39;s plain error page instead (A22).</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>A helpful error page keeps visitors on the site.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Add <code>404.php</code> with a short message, the search box and links to main sections.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Open a fake URL: status 404 and the new page.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="finding">
+            <div class="finding-head"><span class="num">A21</span>
+              <h3>Unused large files and long URLs</h3>
+              <div class="chips"><span class="chip p-low">Low</span><span class="chip s-check">Needs verification</span>
+              </div>
+            </div>
+            <dl class="fields">
+              <div>
+                <dt>Page/section</dt>
+                <dd>Theme files; News and Instagram URLs</dd>
+              </div>
+              <div>
+                <dt>File or URL</dt>
+                <dd><code>assets/img/top/mv-img.png</code> (8.6 MB), <code>header_mv.png</code>,
+                  <code>sec01-ellipse-bg.png</code>; news and instagram post slugs</dd>
+              </div>
+              <div>
+                <dt>Finding</dt>
+                <dd>These image files are not referenced in any theme PHP, CSS or JS file. News and Instagram posts use
+                  long Japanese slugs that become percent-encoded addresses.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Text search of the theme; sitemap URLs such as <code>/news/%e3%82%b3%e3%83%bc…/</code>.</dd>
+              </div>
+              <div>
+                <dt>Why it matters</dt>
+                <dd>Unused files do not slow pages but make uploads and backups larger. Short, readable URLs are easier
+                  to share; this is minor for ranking.</dd>
+              </div>
+              <div>
+                <dt>Recommended action</dt>
+                <dd>Confirm the files are unused, then remove them. For new posts, coders set short English slugs. Do not change published URLs without redirects.</dd>
+              </div>
+              <div>
+                <dt>How to verify</dt>
+                <dd>Site still displays correctly after removal on staging.</dd>
+              </div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <nav class="pager" aria-label="Previous and next">
+        <a class="prev" href="02-site-map.html"><span class="dir">← Previous</span>2. Site map &amp; page plan</a>
+        <a class="next" href="04-discussion-guide.html"><span class="dir">Next →</span>4. Discussion guide</a>
+      </nav>
+
+      <footer class="doc">Prepared from the rc-renewal theme on October 1, 2026. Updated October 5, 2026 with the site
+        map and page plan and checks of the published test site. This document changes no website files; progress in
+        development is noted where it happened.</footer>
+    </main>
+  </div>
+
+</body>
+
+</html>

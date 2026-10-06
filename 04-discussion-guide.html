@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Discussion guide · RightCore SEO Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="shell">
+    <nav class="toc" aria-label="Contents">
+      <a class="home" href="index.html">RightCore SEO Plan</a>
+      <p>Contents</p>
+      <ol>
+        <li><a href="01-simple-explanation.html">1. Simple explanation</a></li>
+        <li><a href="02-site-map.html">2. Site map &amp; page plan</a></li>
+        <li><a href="03-website-audit.html">3. Website audit</a></li>
+        <li><a href="04-discussion-guide.html" aria-current="page">4. Discussion guide</a></li>
+        <li><a href="05-coder-tasks.html">5. Coder task list</a></li>
+        <li><a href="05b-code-changes.html">5.1 Code changes</a></li>
+        <li><a href="05c-wp-checklist.html">5.2 WP checklist &amp; plugins</a></li>
+        <li><a href="06-questions.html">6. Questions for media &amp; manager</a></li>
+        <li><a href="07-report-template.html">7. Oct 7 report template</a></li>
+        <li><a href="09-sources.html">Sources</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section id="guide">
+        <h2>4. Discussion guide for the coders</h2>
+        <p class="lede">A 75-minute meeting. Proposed date: Friday, October 2, 2026.</p>
+
+        <div class="topic">
+          <span class="time">10 min</span>
+          <h3>Purpose, audience and business goals</h3>
+          <p class="label">Explain</p>
+          <ul>
+            <li>The manager wants a report by October 7. The CEO values SEO and MEO. Our job is to find and fix
+              problems with evidence and to set the SEO text and settings ourselves. We do not promise rankings.</li>
+            <li>SEO helps the website appear in Google; MEO is mostly the Google Business Profile, which the website
+              supports with matching company details.</li>
+          </ul>
+          <p class="label">Answers</p>
+          <ul>
+            <li><strong>Who are our customers?</strong> Japanese companies in Japan. The site is in Japanese.</li>
+            <li><strong>What should a visitor do on the site?</strong> All of these: contact us, call, apply for a job,
+              browse our works and learn about the company.</li>
+          </ul>
+          <p class="label">Actions</p>
+          <ul>
+            <li>Team lead records our assumptions and sends the open questions in <a href="06-questions.html">section 6</a> to the manager and media
+              team.</li>
+          </ul>
+          <p class="label">Expected output and confirmation</p>
+          <ul>
+            <li>Questions sent the same day; meeting notes shared with the team.</li>
+          </ul>
+        </div>
+
+        <div class="topic">
+          <span class="time">10 min</span>
+          <h3>Which pages and services people should find</h3>
+          <p class="label">Explain</p>
+          <ul>
+            <li>Walk through the site map and page plan (<a href="02-site-map.html">section 2</a>): 11 planned pages, from About to the Contact flow
+              and 404.</li>
+            <li>In development, the homepage, About and News show real content; Works and Instagram show a placeholder
+              (A1). On the test site, every page except the homepage is a 404 (A22).</li>
+          </ul>
+          <p class="label">Questions to answer</p>
+          <ul>
+            <li>Go through the SNS decisions in "Decisions needed" (<a href="02-site-map.html">section 2</a>): feed plugin, Instagram
+              account, where the feed appears, redirects.</li>
+            <li>Agree on the proposed order of work.</li>
+          </ul>
+          <p class="label">Actions</p>
+          <ul>
+            <li>Team lead records each decision in the page plan; manager and media team confirm priorities and content.</li>
+          </ul>
+          <p class="label">Expected output and confirmation</p>
+          <ul>
+            <li>An agreed page list in the report under "Proposed improvements".</li>
+          </ul>
+        </div>
+
+        <div class="topic">
+          <span class="time">20 min</span>
+          <h3>Audit findings</h3>
+          <p class="label">Explain</p>
+          <ul>
+            <li>Walk through A1–A22 in priority order: High (A22, A1, A2, A3, A6, A8, A9, A14, A15), then Medium, then
+              Low.</li>
+            <li>Separate "Confirmed issue" (we have proof) from "Needs verification" (we need access or confirmation).
+            </li>
+          </ul>
+          <p class="label">Questions to answer</p>
+          <ul>
+            <li>Does anyone disagree with a finding or have more information?</li>
+            <li>Which fixes are safe to do in development and staging before October 7?</li>
+          </ul>
+          <p class="label">Actions</p>
+          <ul>
+            <li>Each coder confirms the findings for their sections.</li>
+          </ul>
+          <p class="label">Expected output and confirmation</p>
+          <ul>
+            <li>Each finding has an agreed priority; disagreements noted.</li>
+          </ul>
+        </div>
+
+        <div class="topic" id="yoast">
+          <span class="time">10 min</span>
+          <h3>Yoast SEO: our one SEO plugin</h3>
+          <p class="label">Explain</p>
+          <ul>
+            <li>The project uses <strong>Yoast SEO</strong>. It prints the page title, meta description, canonical, share
+              preview (Open Graph), the sitemap (<code>/sitemap_index.xml</code>), breadcrumb and Organization
+              structured data. We do not add a second SEO plugin, and the theme must not print any of these
+              (<a href="05b-code-changes.html#seo-plugin">5.1, C12</a>).</li>
+            <li>Yoast is on the development and production servers, but not in the Local copy
+              (<code>rcrenewalproject</code>) or on the published test site. Pages there do not show what the real
+              site will output.</li>
+            <li>Settings to make are listed in <a href="05c-wp-checklist.html#seo-settings">5.2, section 4</a>:
+              site name and separator, which content types appear in Google, sitemap contents, Organization, Search
+              Console code, breadcrumbs.</li>
+            <li>Yoast's green / orange lights are a writing aid, not a ranking score. Do not repeat keywords to turn
+              them green; write titles and descriptions for people.</li>
+          </ul>
+          <p class="label">Questions to answer</p>
+          <ul>
+            <li>Who owns the Yoast settings (one person), and who writes the title and description for each page?</li>
+            <li>Install Yoast in Local and on the test site now, at the same version as the servers?</li>
+            <li>Homepage title wording: company name plus which main service, and 「大阪」 or not?</li>
+            <li>Share image (1200 × 630px) and Organization logo: who makes them from the design?</li>
+            <li>Instagram post type: hide from Google and the sitemap in Yoast until the feed plugin replaces it?</li>
+          </ul>
+          <p class="label">Actions</p>
+          <ul>
+            <li>Settings owner applies <a href="05c-wp-checklist.html#seo-settings">5.2, section 4</a> on development,
+              then production after approval.</li>
+            <li>Each coder fills the Yoast box (SEO title, slug, meta description) for their pages.</li>
+            <li>Theme owner replaces any custom breadcrumb code with <code>yoast_breadcrumb()</code> and removes hard-coded
+              head tags.</li>
+          </ul>
+          <p class="label">Expected output and confirmation</p>
+          <ul>
+            <li>Page source of each page shows one title, one description, one canonical and no duplicate JSON-LD.</li>
+            <li><code>/sitemap_index.xml</code> lists only pages, news and works. Screenshot of each Yoast settings
+              screen in the evidence folder.</li>
+          </ul>
+        </div>
+
+        <div class="topic">
+          <span class="time">10 min</span>
+          <h3>Collaboration and shared files</h3>
+          <p class="label">Explain</p>
+          <ul>
+            <li>Shared files: <code>functions.php</code>, <code>header.php</code>, <code>footer.php</code>,
+              <code>assets/css/base/fonts.css</code>. Only one person edits a shared file at a time; others send a
+              request.</li>
+            <li>Collaboration sections (MV, About, Works, Recruit, Instagram) name a lead editor for each change.</li>
+          </ul>
+          <p class="label">Questions to answer</p>
+          <ul>
+            <li>How do we avoid overwriting each other's uploads by FTP?</li>
+            <li>Who uploads to staging, and who uploads to production after approval?</li>
+          </ul>
+          <p class="label">Actions</p>
+          <ul>
+            <li>Team lead sets one rule: announce in chat before uploading a shared file, and list uploaded files after.
+            </li>
+          </ul>
+          <p class="label">Expected output and confirmation</p>
+          <ul>
+            <li>Written upload rule in the team chat.</li>
+          </ul>
+        </div>
+
+        <div class="topic">
+          <span class="time">5 min</span>
+          <h3>Real information from the media team</h3>
+          <p class="label">Explain</p>
+          <ul>
+            <li>We have WordPress admin on development and production, with Yoast SEO installed. Coders write titles,
+              descriptions and alt text and choose keywords for each page.</li>
+            <li>We ask the media team or management only for real information: company details, real photos and works,
+              testimonials permission, privacy policy text and the Business Profile. Real information already in the
+              design is used as it is.</li>
+          </ul>
+          <p class="label">Actions</p>
+          <ul>
+            <li>Team lead sends the media questions (<a href="06-questions.html">section 6</a>) and agrees on a delivery date for the real
+              information and images.</li>
+          </ul>
+          <p class="label">Expected output and confirmation</p>
+          <ul>
+            <li>Reply from the media team with dates.</li>
+          </ul>
+        </div>
+
+        <div class="topic">
+          <span class="time">10 min</span>
+          <h3>Testing, evidence and deadlines</h3>
+          <p class="label">Explain</p>
+          <ul>
+            <li>Every task needs proof: before and after screenshots, page source snippets, PageSpeed or Lighthouse
+              reports, link-checker results.</li>
+            <li>Save evidence in one shared folder named <code>SEO-evidence/[name]/[finding-number]</code>.</li>
+          </ul>
+          <p class="label">Deadlines</p>
+          <ul>
+            <li>Oct 2 (Fri): meeting; questions sent.</li>
+            <li>Oct 5 (Mon), 18:00: each coder submits checks, quick fixes in development or staging, and evidence.</li>
+            <li>Oct 6 (Tue): team lead reviews and fills the report.</li>
+            <li>Oct 7 (Wed): report submitted. Larger builds (A1 templates) get target dates in the report.</li>
+          </ul>
+          <p class="label">Expected output and confirmation</p>
+          <ul>
+            <li>Evidence folder complete; the team lead ticks each task in the report.</li>
+          </ul>
+        </div>
+      </section>
+
+      <nav class="pager" aria-label="Previous and next">
+        <a class="prev" href="03-website-audit.html"><span class="dir">← Previous</span>3. Website audit</a>
+        <a class="next" href="05-coder-tasks.html"><span class="dir">Next →</span>5. Coder task list</a>
+      </nav>
+
+      <footer class="doc">Prepared from the rc-renewal theme on October 1, 2026. Updated October 5, 2026 with the site
+        map and page plan and checks of the published test site. This document changes no website files; progress in
+        development is noted where it happened.</footer>
+    </main>
+  </div>
+
+</body>
+
+</html>

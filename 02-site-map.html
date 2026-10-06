@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Site map &amp; page plan · RightCore SEO Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="shell">
+    <nav class="toc" aria-label="Contents">
+      <a class="home" href="index.html">RightCore SEO Plan</a>
+      <p>Contents</p>
+      <ol>
+        <li><a href="01-simple-explanation.html">1. Simple explanation</a></li>
+        <li><a href="02-site-map.html" aria-current="page">2. Site map &amp; page plan</a></li>
+        <li><a href="03-website-audit.html">3. Website audit</a></li>
+        <li><a href="04-discussion-guide.html">4. Discussion guide</a></li>
+        <li><a href="05-coder-tasks.html">5. Coder task list</a></li>
+        <li><a href="05b-code-changes.html">5.1 Code changes</a></li>
+        <li><a href="05c-wp-checklist.html">5.2 WP checklist &amp; plugins</a></li>
+        <li><a href="06-questions.html">6. Questions for media &amp; manager</a></li>
+        <li><a href="07-report-template.html">7. Oct 7 report template</a></li>
+        <li><a href="09-sources.html">Sources</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section id="pages">
+        <h2>2. Site map and page plan</h2>
+        <p class="lede">Every page the site is planned to have, with a proposed address, how it is built in WordPress,
+          where it stands today, and what we still need to decide. Status was checked on October 5, 2026. This is a
+          proposal for discussion, not a final list.</p>
+
+        <div class="note key">
+          <h4>Read this first: the published test site</h4>
+          <ul>
+            <li>The published test site is <a
+                href="https://offshore-tng02.sakura.ne.jp/right-core/">offshore-tng02.sakura.ne.jp/right-core</a>. It is
+              hidden from Google (<code>noindex, nofollow</code>), which is correct for a test copy.</li>
+            <li>On that site, every address except the homepage returns the server's own "Not Found" page, including
+              <code>/news/</code>, <code>/works/</code> and every post. The homepage links to these pages, so those
+              links are broken there. This blocks testing any page in this plan on the test site. See finding A22.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>Proposed site tree</h3>
+          <figure class="figure">
+            <div class="diagram-wrap"><svg class="diagram" viewBox="0 0 770 678" role="img"
+                aria-labelledby="tree-title tree-desc">
+                <title id="tree-title">Proposed site tree</title>
+                <desc id="tree-desc">Top page with eleven child pages: About, Service, Company, Works with Works detail,
+                  Recruit, FAQ, SNS with temporary detail pages, News with News detail, Contact with three forms,
+                  Privacy Policy, and 404.</desc>
+                <rect x="20" y="16" width="140" height="40" rx="6" class="box root" /><text x="34" y="41"
+                  class="lbl root-t">Top</text><text x="146" y="40" class="url root-t" text-anchor="end">/</text>
+                <line x1="80" y1="56" x2="80" y2="645" class="ln" />
+                <line x1="80" y1="93" x2="120" y2="93" class="ln" />
+                <rect x="120" y="76" width="250" height="34" rx="6" class="box" /><text x="134" y="98"
+                  class="lbl">About</text><text x="356" y="97" class="url" text-anchor="end">/about/</text>
+                <line x1="80" y1="139" x2="120" y2="139" class="ln" />
+                <rect x="120" y="122" width="250" height="34" rx="6" class="box" /><text x="134" y="144"
+                  class="lbl">Service</text><text x="356" y="143" class="url" text-anchor="end">/service/</text>
+                <line x1="80" y1="185" x2="120" y2="185" class="ln" />
+                <rect x="120" y="168" width="250" height="34" rx="6" class="box" /><text x="134" y="190"
+                  class="lbl">Company</text><text x="356" y="189" class="url" text-anchor="end">/company/</text>
+                <line x1="80" y1="231" x2="120" y2="231" class="ln" />
+                <rect x="120" y="214" width="250" height="34" rx="6" class="box" /><text x="134" y="236"
+                  class="lbl">Works</text><text x="356" y="235" class="url" text-anchor="end">/works/</text>
+                <line x1="395" y1="231" x2="420" y2="231" class="ln" />
+                <rect x="420" y="214" width="330" height="34" rx="6" class="box" /><text x="434" y="236"
+                  class="lbl sub">Works detail</text><text x="736" y="235" class="url"
+                  text-anchor="end">/works/{slug}/</text>
+                <line x1="370" y1="231" x2="395" y2="231" class="ln" />
+                <line x1="80" y1="277" x2="120" y2="277" class="ln" />
+                <rect x="120" y="260" width="250" height="34" rx="6" class="box" /><text x="134" y="282"
+                  class="lbl">Recruit</text><text x="356" y="281" class="url" text-anchor="end">/recruit/</text>
+                <line x1="80" y1="323" x2="120" y2="323" class="ln" />
+                <rect x="120" y="306" width="250" height="34" rx="6" class="box" /><text x="134" y="328"
+                  class="lbl">FAQ</text><text x="356" y="327" class="url" text-anchor="end">/faq/</text>
+                <line x1="80" y1="369" x2="120" y2="369" class="ln" />
+                <rect x="120" y="352" width="250" height="34" rx="6" class="box dash" /><text x="134" y="374"
+                  class="lbl">SNS (Instagram)</text><text x="356" y="373" class="url"
+                  text-anchor="end">/instagram/</text>
+                <line x1="395" y1="369" x2="420" y2="369" class="ln" />
+                <rect x="420" y="352" width="330" height="34" rx="6" class="box dash" /><text x="434" y="374"
+                  class="lbl sub">SNS detail (temporary)</text><text x="736" y="373" class="url"
+                  text-anchor="end">/instagram/{slug}/</text>
+                <line x1="370" y1="369" x2="395" y2="369" class="ln" />
+                <line x1="80" y1="415" x2="120" y2="415" class="ln" />
+                <rect x="120" y="398" width="250" height="34" rx="6" class="box" /><text x="134" y="420"
+                  class="lbl">News</text><text x="356" y="419" class="url" text-anchor="end">/news/</text>
+                <line x1="395" y1="415" x2="420" y2="415" class="ln" />
+                <rect x="420" y="398" width="330" height="34" rx="6" class="box" /><text x="434" y="420"
+                  class="lbl sub">News detail</text><text x="736" y="419" class="url"
+                  text-anchor="end">/news/{slug}/</text>
+                <line x1="370" y1="415" x2="395" y2="415" class="ln" />
+                <line x1="80" y1="461" x2="120" y2="461" class="ln" />
+                <rect x="120" y="444" width="250" height="34" rx="6" class="box" /><text x="134" y="466"
+                  class="lbl">Contact</text><text x="356" y="465" class="url" text-anchor="end">/contact/</text>
+                <line x1="395" y1="461" x2="420" y2="461" class="ln" />
+                <rect x="420" y="444" width="330" height="34" rx="6" class="box" /><text x="434" y="466"
+                  class="lbl sub">General form</text><text x="736" y="465" class="url"
+                  text-anchor="end">/contact/general/</text>
+                <line x1="395" y1="507" x2="420" y2="507" class="ln" />
+                <rect x="420" y="490" width="330" height="34" rx="6" class="box" /><text x="434" y="512"
+                  class="lbl sub">Service form</text><text x="736" y="511" class="url"
+                  text-anchor="end">/contact/service/</text>
+                <line x1="395" y1="553" x2="420" y2="553" class="ln" />
+                <rect x="420" y="536" width="330" height="34" rx="6" class="box" /><text x="434" y="558"
+                  class="lbl sub">Recruitment form</text><text x="736" y="557" class="url"
+                  text-anchor="end">/contact/recruit/</text>
+                <line x1="370" y1="461" x2="395" y2="461" class="ln" />
+                <line x1="395" y1="461" x2="395" y2="553" class="ln" />
+                <line x1="80" y1="599" x2="120" y2="599" class="ln" />
+                <rect x="120" y="582" width="250" height="34" rx="6" class="box" /><text x="134" y="604"
+                  class="lbl">Privacy Policy</text><text x="356" y="603" class="url"
+                  text-anchor="end">/privacy-policy/</text>
+                <line x1="80" y1="645" x2="120" y2="645" class="ln" />
+                <rect x="120" y="628" width="250" height="34" rx="6" class="box" /><text x="134" y="650"
+                  class="lbl">404</text><text x="356" y="649" class="url" text-anchor="end">any missing address</text>
+              </svg></div>
+            <figcaption class="legend-row"><span class="swatch swatch-solid" aria-hidden="true"></span> Page <span
+                class="swatch swatch-dash" aria-hidden="true"></span> Temporary, replaced when the SNS feed plugin goes live
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="block">
+          <h3>Status at a glance</h3>
+          <div class="table-wrap">
+            <table class="status">
+              <thead>
+                <tr>
+                  <th scope="col">Page</th>
+                  <th scope="col">Built as</th>
+                  <th scope="col">Development</th>
+                  <th scope="col">Published test site</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Top</td>
+                  <td><code>front-page.php</code></td>
+                  <td><span class="chip s-ok">Built</span></td>
+                  <td><span class="chip s-ok">Works</span></td>
+                </tr>
+                <tr>
+                  <td>About</td>
+                  <td>Page · <code>pages/about.php</code></td>
+                  <td><span class="chip s-ok">Built (basic)</span></td>
+                  <td><span class="chip s-confirmed">404</span></td>
+                </tr>
+                <tr>
+                  <td>Service</td>
+                  <td>Page</td>
+                  <td><span class="chip s-check">Not built</span></td>
+                  <td><span class="chip s-confirmed">404</span></td>
+                </tr>
+                <tr>
+                  <td>Company</td>
+                  <td>Page</td>
+                  <td><span class="chip s-check">Not built</span></td>
+                  <td><span class="chip s-confirmed">404</span></td>
+                </tr>
+                <tr>
+                  <td>Works list / detail</td>
+                  <td>Post type <code>works</code></td>
+                  <td><span class="chip s-confirmed">Placeholder only</span></td>
+                  <td><span class="chip s-confirmed">404</span></td>
+                </tr>
+                <tr>
+                  <td>Recruit</td>
+                  <td>Page</td>
+                  <td><span class="chip s-check">Not built</span></td>
+                  <td><span class="chip s-confirmed">404</span></td>
+                </tr>
+                <tr>
+                  <td>FAQ</td>
+                  <td>Page</td>
+                  <td><span class="chip s-check">Not built</span></td>
+                  <td><span class="chip s-confirmed">404</span></td>
+                </tr>
+                <tr>
+                  <td>SNS list / detail</td>
+                  <td>Instagram feed plugin (soon); post type <code>instagram</code> until then</td>
+                  <td><span class="chip s-check">Plugin planned</span></td>
+                  <td><span class="chip s-confirmed">404</span></td>
+                </tr>
+                <tr>
+                  <td>News list / detail</td>
+                  <td>Page 「News一覧」 + post type <code>news</code></td>
+                  <td><span class="chip s-ok">Built Oct 5</span></td>
+                  <td><span class="chip s-confirmed">404 · not uploaded</span></td>
+                </tr>
+                <tr>
+                  <td>Contact (3 forms × 3 steps)</td>
+                  <td>Pages + MW WP Form</td>
+                  <td><span class="chip s-check">Not built · plugin not installed</span></td>
+                  <td><span class="chip s-confirmed">404</span></td>
+                </tr>
+                <tr>
+                  <td>Privacy Policy</td>
+                  <td>Page</td>
+                  <td><span class="chip s-check">Not built</span></td>
+                  <td><span class="chip s-confirmed">404</span></td>
+                </tr>
+                <tr>
+                  <td>404</td>
+                  <td><code>404.php</code></td>
+                  <td><span class="chip s-confirmed">Placeholder</span></td>
+                  <td><span class="chip s-confirmed">Server page</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">"Not built" means no page or template exists yet. "Placeholder only" means the address works
+            but shows 「トップページをご覧ください」 instead of real content (finding A1).</p>
+        </div>
+
+        <div class="block">
+          <h3>Page details</h3>
+          <div class="note">
+            <p><b>Updated October 5, 2026 (afternoon), from the development build</b></p>
+            <ul>
+              <li>Header menu, footer site map, もっと見る buttons and service cards now link to the planned page
+                addresses (<code>/about/</code>, <code>/service/</code>, <code>/company/</code>, <code>/works/</code>,
+                <code>/recruit/</code>, <code>/faq/</code>, <code>/contact/</code>, <code>/privacy-policy/</code>). The
+                homepage has no <code>href="#"</code> links left.</li>
+              <li>Only Top, About, News and Works addresses exist in development. Service, Company, Recruit, FAQ,
+                Contact and Privacy Policy return 404 for now. <b>Decision:</b> the links stay pointed at these
+                addresses; each one starts working as soon as its page is published, with no code change
+                (<a href="05b-code-changes.html#nav-links">C2</a>, <a href="05b-code-changes.html#buttons">C3</a>).</li>
+              <li>Facebook and X icons use dummy addresses (<code>https://www.facebook.com/</code>,
+                <code>https://x.com/</code>) until the official accounts are confirmed.</li>
+              <li>The company name shown on the pages (MV heading, logo <code>alt</code>, footer map card) now comes
+                from Settings › General › Site Title (<a href="05b-code-changes.html#site-name">C14</a>).</li>
+              <li>The published test site has not changed since September 29: it still has the old <code>#</code>
+                links, and every address except the homepage still fails (A22).</li>
+            </ul>
+          </div>
+          <div class="findings">
+
+            <article class="finding" id="about">
+              <div class="finding-head">
+                <h3>About</h3>
+                <div class="chips"><span class="chip s-ok">Built in development</span></div>
+              </div>
+              <dl class="fields">
+                <div>
+                  <dt>Address</dt>
+                  <dd><code>/about/</code></dd>
+                </div>
+                <div>
+                  <dt>Built as</dt>
+                  <dd>WordPress Page with slug <code>about</code>. The theme loads <code>pages/about.php</code>
+                    automatically from the slug (title and editor content).</dd>
+                </div>
+                <div>
+                  <dt>Linked from</dt>
+                  <dd>Header menu, footer site map and the homepage About もっと見る button (fixed; was <code>#</code>).</dd>
+                </div>
+                <div>
+                  <dt>SEO notes</dt>
+                  <dd>One H1 (「私たちについて」), real text about the company. Page title and the company name
+                    on the page show 「rc_renewal_project」 until the Site Title is changed (A2, C14). Not yet on the test site.</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="finding" id="service">
+              <div class="finding-head">
+                <h3>Service</h3>
+                <div class="chips"><span class="chip s-check">Not built</span></div>
+              </div>
+              <dl class="fields">
+                <div>
+                  <dt>Address</dt>
+                  <dd><code>/service/</code>, with one section per service: <code>#creative</code>,
+                    <code>#design</code>, <code>#media</code>, <code>#global</code>.</dd>
+                </div>
+                <div>
+                  <dt>Built as</dt>
+                  <dd>Page with slug <code>service</code> and template <code>pages/service.php</code> (loaded
+                    automatically from the slug).</dd>
+                </div>
+                <div>
+                  <dt>Linked from</dt>
+                  <dd>Header menu, footer site map, both Service もっと見る buttons, and the eight service card links
+                    (card and overlay), which go to <code>/service/#creative</code> etc. All return 404 until the page
+                    exists.</dd>
+                </div>
+                <div>
+                  <dt>SEO notes</dt>
+                  <dd>Service pages are usually what customers search for. The page must have elements with
+                    <code>id="creative"</code>, <code>"design"</code>, <code>"media"</code> and <code>"global"</code>, each
+                    with an H2 and real text. If a service later needs to rank on its own, it can move to its own page
+                    (for example <code>/service/design/</code>) with a 301 redirect.</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="finding" id="company">
+              <div class="finding-head">
+                <h3>Company</h3>
+                <div class="chips"><span class="chip s-check">Not built</span></div>
+              </div>
+              <dl class="fields">
+                <div>
+                  <dt>Address</dt>
+                  <dd><code>/company/</code></dd>
+                </div>
+                <div>
+                  <dt>Built as</dt>
+                  <dd>Page with slug <code>company</code>, template <code>pages/company.php</code>.</dd>
+                </div>
+                <div>
+                  <dt>Linked from</dt>
+                  <dd>Header menu and footer site map 「Company 会社概要」 (fixed; was <code>#company</code>). Returns 404
+                    until the page exists.</dd>
+                </div>
+                <div>
+                  <dt>SEO notes</dt>
+                  <dd>Important for MEO: the company profile table (name, address, phone, founding date, representative,
+                    business) and an access map must match the Google Business Profile exactly (A14).</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="finding" id="works">
+              <div class="finding-head">
+                <h3>Works list and Works detail</h3>
+                <div class="chips"><span class="chip s-confirmed">Placeholder only</span></div>
+              </div>
+              <dl class="fields">
+                <div>
+                  <dt>Address</dt>
+                  <dd><code>/works/</code> and <code>/works/{slug}/</code></dd>
+                </div>
+                <div>
+                  <dt>Built as</dt>
+                  <dd>Post type <code>works</code> (registered). List and detail templates still to build, following
+                    the News pattern (<code>pages/archive-works.php</code>, <code>pages/single-works.php</code>; code
+                    in <a href="05b-code-changes.html#works">C8</a>).</dd>
+                </div>
+                <div>
+                  <dt>Linked from</dt>
+                  <dd>Header menu and footer site map (fixed; was <code>#works</code>), the homepage Works cards and
+                    すべて見る button.</dd>
+                </div>
+                <div>
+                  <dt>Current state</dt>
+                  <dd><code>/works/</code> and each work return 200 but show only 「RIGHTCORE」 and
+                    「トップページをご覧ください」 (A1).</dd>
+                </div>
+                <div>
+                  <dt>SEO notes</dt>
+                  <dd>Each work needs a unique title, real description and compressed images with alt text. Development
+                    now uses short English slugs (<code>essence-cleaning</code>, <code>katsushika-garage</code>,
+                    <code>onekamakura</code>, <code>sushi-okazaki</code>). The test site still has Japanese slugs and the
+                    typo <code>suski-okazaki</code>; use the development slugs when uploading.</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="finding" id="recruit">
+              <div class="finding-head">
+                <h3>Recruit</h3>
+                <div class="chips"><span class="chip s-check">Not built</span></div>
+              </div>
+              <dl class="fields">
+                <div>
+                  <dt>Address</dt>
+                  <dd><code>/recruit/</code></dd>
+                </div>
+                <div>
+                  <dt>Built as</dt>
+                  <dd>Page with slug <code>recruit</code>, template <code>pages/recruit.php</code>. Links to the
+                    <a href="#contact">Recruitment form</a>.</dd>
+                </div>
+                <div>
+                  <dt>Linked from</dt>
+                  <dd>Header menu, footer site map and the homepage Recruit もっと見る button (fixed; was
+                    <code>#</code>). Returns 404 until the page exists.</dd>
+                </div>
+                <div>
+                  <dt>SEO notes</dt>
+                  <dd>If each job opening gets its own page with full details, JobPosting structured data can be
+                    considered later so jobs can appear in Google's job search. The homepage Recruit heading still uses
+                    <code>id="about-title"</code>; give it its own id (A11).</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="finding" id="faq">
+              <div class="finding-head">
+                <h3>FAQ</h3>
+                <div class="chips"><span class="chip s-check">Not built</span></div>
+              </div>
+              <dl class="fields">
+                <div>
+                  <dt>Address</dt>
+                  <dd><code>/faq/</code></dd>
+                </div>
+                <div>
+                  <dt>Built as</dt>
+                  <dd>Page with slug <code>faq</code>, template <code>pages/faq.php</code>, reusing the homepage FAQ
+                    accordion.</dd>
+                </div>
+                <div>
+                  <dt>Linked from</dt>
+                  <dd>Header menu, footer site map (fixed; was <code>#faq</code>) and the homepage FAQ button. All return
+                    404 until the page exists.</dd>
+                </div>
+                <div>
+                  <dt>SEO notes</dt>
+                  <dd>Questions should be real text, not images. Skip FAQ structured data (A19).</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="finding" id="sns">
+              <div class="finding-head">
+                <h3>SNS list and SNS detail (Instagram)</h3>
+                <div class="chips"><span class="chip s-check">Plugin planned</span><span
+                    class="chip s-confirmed">Temporary post type</span></div>
+              </div>
+              <dl class="fields">
+                <div>
+                  <dt>Plan</dt>
+                  <dd>The SNS (Instagram) area will move to an Instagram feed plugin soon. The plugin is not chosen or
+                    approved yet. Until then, the temporary post type <code>instagram</code> stands in, with a list at
+                    <code>/instagram/</code> and detail pages at <code>/instagram/{slug}/</code>.</dd>
+                </div>
+                <div>
+                  <dt>What we understand now</dt>
+                  <dd>
+                    <ul>
+                      <li><strong>How a feed plugin works:</strong> it pulls posts from the connected Instagram account
+                        and shows them on our page. The posts stay on Instagram; we do not copy them into WordPress.
+                        Clicking a post usually opens Instagram or a popup, so there is normally no detail page on our
+                        site.</li>
+                      <li><strong>Detail pages will go away:</strong> the current <code>/instagram/{slug}/</code> pages
+                        are temporary. Any that have been public must redirect (301) to the SNS list or the homepage SNS
+                        section when the plugin goes live, or visitors and Google get 404s.</li>
+                      <li><strong>Search value:</strong> the feed is Instagram's content, not ours, so treat SNS as a
+                        feature for visitors, not as SEO content. Keep the temporary pages out of the sitemap and out of
+                        Google (noindex) until the switch.</li>
+                      <li><strong>Account connection:</strong> Meta shut down the Instagram Basic Display API on
+                        December 4, 2024. Feed plugins now connect through Meta's newer Instagram API, and most plugin
+                        guides say the account must be a Professional (Business or Creator) account. We must confirm
+                        this with the plugin we choose, and confirm which account is official (A14 lists
+                        「rightcore_manila」).</li>
+                      <li><strong>Keeping it running:</strong> if the connection breaks (for example a password change
+                        or removed permission), the feed stops updating. One person must own the Instagram login and
+                        reconnect the plugin when needed.</li>
+                      <li><strong>Speed:</strong> feed images load from Instagram's servers and the plugin adds its own
+                        scripts and styles. Check the page weight before and after (A6), and use lazy loading if the
+                        plugin offers it.</li>
+                      <li><strong>Privacy:</strong> the <a href="#privacy-policy">Privacy Policy</a> should mention that the site shows embedded
+                        content from Instagram (Meta).</li>
+                      <li><strong>Design:</strong> the current SNS design must be rebuilt around what the plugin can
+                        output. Check its layout and styling options before choosing.</li>
+                    </ul>
+                  </dd>
+                </div>
+                <div>
+                  <dt>To decide</dt>
+                  <dd>
+                    <ul>
+                      <li>Which plugin (free or paid), and when it goes live.</li>
+                      <li>Which Instagram account, and who owns its login.</li>
+                      <li>Where the feed appears: homepage section only, or also its own page. If its own page, use
+                        <code>/sns/</code> or <code>/instagram/</code>.</li>
+                      <li>When to remove the temporary post type, and the redirect list for its pages.</li>
+                      <li>Clean up the duplicate posts if the post type stays until launch: 「スタッフインタビュー」 on the
+                        test site and 「新しいコーポレートサイトが公開されました」 in development (one slug ends in
+                        <code>-2</code> in each).</li>
+                    </ul>
+                  </dd>
+                </div>
+                <div>
+                  <dt>Sources</dt>
+                  <dd><a
+                      href="https://smashballoon.com/instagram-is-shutting-down-basic-display-api-continue-displaying-instagram-feeds-on-your-site/">Smash
+                      Balloon: Instagram Basic Display API shut down</a> · <a
+                      href="https://spotlightwp.com/help/preparing-for-the-end-of-instagram-basic-display-api-what-to-expect-and-how-to-adapt/">Spotlight:
+                      The end of Instagram Basic Display API</a></dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="finding" id="news">
+              <div class="finding-head">
+                <h3>News list and News detail</h3>
+                <div class="chips"><span class="chip s-ok">Built in development</span><span class="chip s-check">Not
+                    uploaded</span></div>
+              </div>
+              <dl class="fields">
+                <div>
+                  <dt>Address</dt>
+                  <dd><code>/news/</code> and <code>/news/{slug}/</code></dd>
+                </div>
+                <div>
+                  <dt>Built as</dt>
+                  <dd>Post type <code>news</code>. The list is a WordPress Page 「ニュース」 (slug <code>news</code>) using
+                    the template 「News一覧」 (<code>pages/archive-news.php</code>); detail
+                    <code>pages/single-news.php</code>, styles <code>assets/css/pages/news.css</code>.</dd>
+                </div>
+                <div>
+                  <dt>Linked from</dt>
+                  <dd>Header menu and footer site map (through <code>rightcore_news_list_url()</code>), the homepage News
+                    items and すべて見る button.</dd>
+                </div>
+                <div>
+                  <dt>Current state</dt>
+                  <dd>Development: <code>/news/</code> returns 200 with H1 「新着情報」; detail pages return 200 with the
+                    post title as H1. Test site: not uploaded, 404 (A22).</dd>
+                </div>
+                <div>
+                  <dt>Done in development (Oct 5)</dt>
+                  <dd>
+                    <ul>
+                      <li>List: latest post featured at the top of every page, the rest in a list (5 per page) with
+                        pagination; the featured post is never repeated in the list.</li>
+                      <li>Detail: image, title, date, content, previous/next links and a back-to-list button.</li>
+                      <li>The list can also be a normal WordPress Page using the template 「News一覧」, so its title and
+                        address can be set in the editor; <code>/news/</code> then redirects there permanently.</li>
+                      <li>Header and footer News links go to the list from every page.</li>
+                    </ul>
+                  </dd>
+                </div>
+                <div>
+                  <dt>SEO notes</dt>
+                  <dd>
+                    <ul>
+                      <li>News slugs are long Japanese text (percent-encoded addresses, A21); set short English slugs
+                        for new posts. Each post needs a unique title.</li>
+                      <li>Development has 7 news posts: three are duplicates whose slugs end in <code>-2</code>
+                        (コーポレートサイトをリニューアル, 新サービスプラン, 運用・保守プラン). Delete the copies before upload.</li>
+                      <li>The page title is 「ニュース」 while the H1 is 「新着情報」. Pick one wording for both.</li>
+                    </ul>
+                  </dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="finding" id="contact">
+              <div class="finding-head">
+                <h3>Contact (MW WP Form)</h3>
+                <div class="chips"><span class="chip s-check">Not built</span><span class="chip s-check">Plugin needs
+                    approval</span></div>
+              </div>
+              <dl class="fields">
+                <div>
+                  <dt>Address</dt>
+                  <dd>Hub <code>/contact/</code>, then for each form: input, confirm and thanks pages (see the flow
+                    below).</dd>
+                </div>
+                <div>
+                  <dt>Built as</dt>
+                  <dd>WordPress Pages with MW WP Form. Each form is set up with its own input, confirm and complete page
+                    addresses.</dd>
+                </div>
+                <div>
+                  <dt>SEO notes</dt>
+                  <dd>
+                    <ul>
+                      <li>Index only the hub and the three input pages. Confirm and thanks pages should be noindex and
+                        left out of the sitemap.</li>
+                      <li>The three thanks pages are where we measure inquiries (for example as Google Analytics 4
+                        conversions), so give each its own address.</li>
+                      <li>Forms collect personal data, so the <a href="#privacy-policy">Privacy Policy</a> must be live first, with a consent
+                        checkbox and a link to it on every form.</li>
+                      <li>Add spam protection. If the recruitment form accepts a résumé file, decide where files are
+                        stored and who can see them.</li>
+                      <li>Check the plugin's current maintenance and security status before installing on production.
+                      </li>
+                      <li>The header contact buttons (desktop and mobile menu) now link to <code>/contact/</code>, which
+                        returns 404 until the page exists. The footer CTA still uses email and phone links, which
+                        work.</li>
+                    </ul>
+                  </dd>
+                </div>
+              </dl>
+              <figure class="figure">
+                <div class="diagram-wrap"><svg class="diagram" viewBox="0 0 780 266" role="img"
+                    aria-labelledby="flow-title flow-desc">
+                    <title id="flow-title">Contact page flow</title>
+                    <desc id="flow-desc">The contact hub links to three forms: General, Service and Recruitment. Each
+                      form goes to a Check page and then a Finish page. Check and Finish pages are noindex.</desc>
+                    <defs>
+                      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7"
+                        orient="auto-start-reverse">
+                        <path d="M0 0L10 5L0 10z" fill="#000" />
+                      </marker>
+                    </defs>
+                    <rect x="14" y="105" width="160" height="54" rx="6" class="box root" /><text x="28" y="128"
+                      class="lbl root-t">Contact hub</text><text x="28" y="147" class="url root-t">/contact/</text>
+                    <line x1="174" y1="132" x2="196" y2="132" class="ln" />
+                    <line x1="196" y1="52" x2="196" y2="212" class="ln" />
+                    <line x1="196" y1="52" x2="214" y2="52" class="ln" />
+                    <rect x="214" y="25" width="176" height="54" rx="6" class="box" /><text x="228" y="48"
+                      class="lbl">General form</text><text x="228" y="67" class="url">/contact/general/</text>
+                    <line x1="390" y1="52" x2="424" y2="52" class="ln" marker-end="url(#arrow)" />
+                    <rect x="428" y="25" width="150" height="54" rx="6" class="box noidx" /><text x="442" y="48"
+                      class="lbl">Check</text><text x="442" y="67" class="url">…/general/confirm/</text>
+                    <line x1="578" y1="52" x2="612" y2="52" class="ln" marker-end="url(#arrow)" />
+                    <rect x="616" y="25" width="150" height="54" rx="6" class="box noidx" /><text x="630" y="48"
+                      class="lbl">Finish</text><text x="630" y="67" class="url">…/general/thanks/</text>
+                    <line x1="196" y1="132" x2="214" y2="132" class="ln" />
+                    <rect x="214" y="105" width="176" height="54" rx="6" class="box" /><text x="228" y="128"
+                      class="lbl">Service form</text><text x="228" y="147" class="url">/contact/service/</text>
+                    <line x1="390" y1="132" x2="424" y2="132" class="ln" marker-end="url(#arrow)" />
+                    <rect x="428" y="105" width="150" height="54" rx="6" class="box noidx" /><text x="442" y="128"
+                      class="lbl">Check</text><text x="442" y="147" class="url">…/service/confirm/</text>
+                    <line x1="578" y1="132" x2="612" y2="132" class="ln" marker-end="url(#arrow)" />
+                    <rect x="616" y="105" width="150" height="54" rx="6" class="box noidx" /><text x="630" y="128"
+                      class="lbl">Finish</text><text x="630" y="147" class="url">…/service/thanks/</text>
+                    <line x1="196" y1="212" x2="214" y2="212" class="ln" />
+                    <rect x="214" y="185" width="176" height="54" rx="6" class="box" /><text x="228" y="208"
+                      class="lbl">Recruitment form</text><text x="228" y="227" class="url">/contact/recruit/</text>
+                    <line x1="390" y1="212" x2="424" y2="212" class="ln" marker-end="url(#arrow)" />
+                    <rect x="428" y="185" width="150" height="54" rx="6" class="box noidx" /><text x="442" y="208"
+                      class="lbl">Check</text><text x="442" y="227" class="url">…/recruit/confirm/</text>
+                    <line x1="578" y1="212" x2="612" y2="212" class="ln" marker-end="url(#arrow)" />
+                    <rect x="616" y="185" width="150" height="54" rx="6" class="box noidx" /><text x="630" y="208"
+                      class="lbl">Finish</text><text x="630" y="227" class="url">…/recruit/thanks/</text>
+                  </svg></div>
+                <figcaption class="legend-row"><span class="swatch swatch-solid" aria-hidden="true"></span> Indexed in Google
+                  <span class="swatch swatch-grey" aria-hidden="true"></span> noindex, not in the sitemap</figcaption>
+              </figure>
+            </article>
+
+            <article class="finding" id="privacy-policy">
+              <div class="finding-head">
+                <h3>Privacy Policy</h3>
+                <div class="chips"><span class="chip s-check">Not built</span></div>
+              </div>
+              <dl class="fields">
+                <div>
+                  <dt>Address</dt>
+                  <dd><code>/privacy-policy/</code></dd>
+                </div>
+                <div>
+                  <dt>Built as</dt>
+                  <dd>Page (title and editor content).</dd>
+                </div>
+                <div>
+                  <dt>SEO notes</dt>
+                  <dd>The footer links here and gets a 404 in development and on the test site (A3). Required before
+                    the <a href="#contact">contact forms</a> go live. Content is a legal text from management.</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="finding" id="not-found">
+              <div class="finding-head">
+                <h3>404 page</h3>
+                <div class="chips"><span class="chip s-confirmed">Placeholder</span></div>
+              </div>
+              <dl class="fields">
+                <div>
+                  <dt>Address</dt>
+                  <dd>Any address that does not exist.</dd>
+                </div>
+                <div>
+                  <dt>Built as</dt>
+                  <dd><code>404.php</code></dd>
+                </div>
+                <div>
+                  <dt>SEO notes</dt>
+                  <dd>Must return status 404 (it does in the development build, but still shows the 「RIGHTCORE」
+                    placeholder). Show a short message, the search box and links to main pages (A20). Until Service,
+                    Company, Recruit, FAQ, Contact and Privacy Policy are built, menu clicks land on this page, so it
+                    matters sooner. On the test site, missing addresses currently show the server's plain
+                    page, not the theme (A22).</dd>
+                </div>
+              </dl>
+            </article>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Shared rules for every new page</h3>
+          <ul>
+            <li>Short English slugs, decided before publishing. Changing a public address later needs a 301 redirect.
+            </li>
+            <li>One H1 per page; unique title and description, written by coders and set in Yoast SEO (A2, A5).</li>
+            <li>Header and footer link to the real page once it exists, instead of a homepage anchor (A3).</li>
+            <li>Images sized and compressed as below, with width, height and alt text (A6, A7).</li>
+            <li>Pages in development stay off the live site until approved.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>Suggested image sizes</h3>
+          <p>Based on Google, web.dev and WordPress guidance. Pixel widths follow the "about twice the displayed size"
+            rule in A6; file sizes are our own working targets, not Google rules.</p>
+          <div class="table-wrap">
+            <table class="status">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Upload width</th>
+                  <th>Format</th>
+                  <th>Target file size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Full-width MV and page header photos</td>
+                  <td>1920–2560px (WordPress scales anything wider than 2560px down)</td>
+                  <td>WebP or compressed JPEG</td>
+                  <td>Under about 300 KB</td>
+                </tr>
+                <tr>
+                  <td>Photos inside a section (About, Recruit, Service)</td>
+                  <td>About twice the displayed width, usually 1200–1600px</td>
+                  <td>WebP or compressed JPEG</td>
+                  <td>Under about 200 KB</td>
+                </tr>
+                <tr>
+                  <td>Cards and list images (Works, News)</td>
+                  <td>About 800px</td>
+                  <td>WebP or compressed JPEG</td>
+                  <td>Under about 100 KB</td>
+                </tr>
+                <tr>
+                  <td>Logo and icons</td>
+                  <td>Vector</td>
+                  <td>SVG (PNG only if needed)</td>
+                  <td>As small as possible</td>
+                </tr>
+                <tr>
+                  <td>Share image (Open Graph)</td>
+                  <td>1200 × 630px</td>
+                  <td>JPEG or PNG</td>
+                  <td>Under about 300 KB</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>Upload through the Media Library and output images with WordPress functions. WordPress then creates
+              smaller copies (150, 300, 768, 1024, 1536 and 2048px) and adds <code>srcset</code> so phones get a
+              smaller file.</li>
+            <li>Every <code>&lt;img&gt;</code> has <code>width</code> and <code>height</code>. The first MV image loads
+              immediately with <code>fetchpriority="high"</code>; images further down use <code>loading="lazy"</code>.
+            </li>
+            <li>Use short, descriptive English file names, for example <code>office-osaka.jpg</code> instead of
+              <code>IMG00023.jpg</code>.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>Alt text rules</h3>
+          <ul>
+            <li><strong>Photo that carries meaning:</strong> a short, factual description in Japanese.</li>
+            <li><strong>Image that contains text</strong> (for example a heading or company details drawn in the
+              design): the alt repeats that text exactly. This uses the real information already in the design.</li>
+            <li><strong>Image inside a link or button:</strong> the alt says where the link goes or what it does.</li>
+            <li><strong>Decorative image</strong> (bullets, background shapes, an icon next to the same words):
+              <code>alt=""</code>.</li>
+            <li>No keyword lists in alt text. Google warns this can make a site look like spam.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>Proposed order of work (for discussion)</h3>
+          <ol>
+            <li><strong>Step 0 — unblock the test site:</strong> fix the 404s on the published test site (A22) so pages
+              can be reviewed there.</li>
+            <li><strong>Phase 1 — needed for launch:</strong> News (upload what is built), Works, Privacy Policy,
+              Contact (with Privacy Policy live first), 404.</li>
+            <li><strong>Phase 2 — company pages:</strong> Company, Service, Recruit, FAQ, and final About content.</li>
+            <li><strong>Phase 3 — after approval:</strong> install the SNS feed plugin, remove the temporary post type,
+              and add redirects for its pages.</li>
+          </ol>
+        </div>
+
+        <div class="block">
+          <h3>Decisions needed</h3>
+          <ul>
+            <li>SNS: which feed plugin and when; which Instagram account; feed on the homepage only or on its own page
+              (<code>/sns/</code> or <code>/instagram/</code>); redirects for the temporary detail pages.</li>
+          </ul>
+        </div>
+      </section>
+
+      <nav class="pager" aria-label="Previous and next">
+        <a class="prev" href="01-simple-explanation.html"><span class="dir">← Previous</span>1. Simple explanation</a>
+        <a class="next" href="03-website-audit.html"><span class="dir">Next →</span>3. Website audit</a>
+      </nav>
+
+      <footer class="doc">Prepared from the rc-renewal theme on October 1, 2026. Updated October 5, 2026 with the site
+        map and page plan and checks of the published test site. This document changes no website files; progress in
+        development is noted where it happened.</footer>
+    </main>
+  </div>
+
+</body>
+
+</html>
